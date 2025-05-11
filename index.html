@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/CSS/style.css"> <!-- // linkeo página a css  -->
+    <!-- añade icono carrito y redes-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- añadir tipografia -->
+
+    <title>Siempre verde</title>
+</head>
+<body>
+</head>
+<body>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <!-- agregar logo -->
+                    <img src="/api/placeholder/120/40" alt="Siempre Verde">
+                </div>
+                <nav>
+                    <ul>  <!-- conectar links a otras paginas -->
+                        <li><a href="index.html">Inicio</a></li> 
+                        <li><a href="tienda.html">Tienda</a></li>
+                        <li><a href="comunidad.html">Comunidad</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="carrito.html"><i class="fas fa-cart-arrow-down"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    
+        <!-- Hero Section -->
+        <section class="hero" id="inicio">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Todas las plantas que puedas imaginar</h1>
+                    <p>Descubre nuestra selección exclusiva de plantas de interior y exterior para transformar tu espacio en un oasis natural.</p>
+                    <a href="tienda.html" class="btn">  <!-- agrego link de tienda -->
+                        Ir a la tienda
+                    </a>
+                </div>
+            </div>
+        </section>            
+        
+        <!-- Productos en pre-venta -->
+        <section class="featured-products" id="tienda">
+            <div class="container">
+              <div class="section-title">
+                <h2>Pre-venta</h2> 
+              </div>
+              <!-- Carousel termina de funcionar con javascript  -->
+              <div class="carousel-container">
+                <button class="carousel-btn left">&#10094;</button>
+          
+                <div class="carousel-track">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="./assets/img/monstera variegada.png" alt="Monstera variegada">
+                            <div class="offer-badge">OFERTA</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">Monstera variegada</h3>
+                            <div class="price">
+                                <span class="original-price">$85.000</span>
+                                <span class="current-price">$68.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="./assets/img/syngonium pink.png" alt="Syngonium pink">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">Syngonium pink</h3>
+                            <div class="price">
+                                <span class="current-price">$45.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="./assets/img/colocasia black.png" alt="Colocasia black">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">Colocasia black</h3>
+                            <div class="price">
+                                <span class="current-price">$38.500</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="./assets/img/Planta Croton.png" alt="Crotón">
+                            <div class="offer-badge">OFERTA</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">Crotón</h3>
+                            <div class="price">
+                                <span class="original-price">$29.000</span>
+                                <span class="current-price">$22.500</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="./assets/img/alocacia amazonica.png" alt="Alocasia amazónica">
+                            <div class="offer-badge">OFERTA</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">Alocasia amazónica</h3>
+                            <div class="price">
+                                <span class="original-price">$36.000</span>
+                                <span class="current-price">$29.500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          
+                <button class="carousel-btn right">&#10095;</button>
+              </div>
+              <a href="#" class="verTodos">Ver todos los productos</a>
+            </div>
+          </section>
+          
+    
+        <!-- Sobre nosotras  -->
+        <section class="sobreNosotras">
+            <div class="container sobreNosotras-grid">
+              
+              <div class="sobreNosotras-img">
+                <img src="./assets/img/vendedora.png" alt="Expertas en plantas de Siempre Verde">
+              </div>
+          
+              <div class="sobreNosotras-texto">
+                <h2>Nuestras expertas saben lo que hacen</h2>
+                <p>
+                  En Siempre Verde, creemos que las plantas transforman espacios y mejoran vidas. 
+                  Nuestro equipo está formado por apasionados de la botánica que entienden las necesidades de cada planta y de cada cliente.
+                  Guiamos cada elección con conocimiento y cariño, porque tu entorno merece lo mejor de la naturaleza.
+                </p>
+                <a href="contacto.html">Conocé más sobre nosotras →</a>   <!-- link a pagina contacto -->
+              </div>
+          
+            </div>
+          </section>
+          
+
+              
+        <!-- Testimonios de los clientes  -->
+
+        <section id="testimonios">
+            <h2>Clientes satisfechos</h2>
+            <div class="slider-container">
+                <div class="testimonial-card">
+                    <p>"Una experiencia increíble. Las plantas llegaron en perfecto estado y el asesoramiento fue excelente. Ahora mi hogar tiene vida nueva gracias a Siempre Verde."</p>
+                    <div class="client-info">
+                        <img src="./assets/img/cliente mujer.jpg" alt="Foto de Laura Gómez">
+                        <span>Laura Gómez</span>
+                    </div>
+                </div>
+            
+                <div class="testimonial-card">
+                    <p>"Siempre Verde es mi vivero de confianza. Calidad y calidez en cada compra. Sus consejos me ayudaron a mantener mis plantas saludables por primera vez."</p>
+                    <div class="client-info">
+                        <img src="./assets/img/cliente hombre.jpg" alt="Foto de Martín Ruiz">
+                        <span>Martín Ruiz</span>
+                    </div>
+                </div>
+            
+                <div class="testimonial-card">
+                    <p>"Gracias a ellos, tengo un jardín hermoso y aprendí a cuidarlo como se debe. Su pasión por las plantas es contagiosa y su servicio al cliente es impecable."</p>
+                    <div class="client-info">
+                        <img src="./assets/img/cliente mujer2.jpg" alt="Foto de Sofía Herrera">
+                        <span>Sofía Herrera</span>
+                    </div>
+                </div>
+    
+                <div class="testimonial-card">
+                    <p>"Encontré plantas que no había visto en ningún otro lugar. El equipo es muy conocedor y atento a las necesidades específicas de cada espacio."</p>
+                    <div class="client-info">
+                        <img src="./assets/img/cliente hombre 2.png" alt="Foto de Diego Méndez">
+                        <span>Diego Méndez</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+          
+        <!-- Sección de categorías -->
+
+        <section id="categorias-destacadas-home">
+            <h2>GreenTips</h2>
+            <div class="categoria">    
+                <img src="./assets/img/gato planta.jpg" alt="Plantas amigables para animales">
+                <h3>Plantas amigables para mascotas</h3>
+            </div>
+          
+            <div class="categoria">
+                <img src="./assets/img/ayuda planta.jpg" alt="Remedios caseros para plantas">
+                <h3>Remedios caseros para plantas</h3>
+            </div>
+          
+            <div class="categoria">
+                <img src="./assets/img/tips planta.jpg" alt="Cuidados especiales">
+                <h3>Guía de cuidados</h3>
+            </div>
+
+            <div class="categoria">
+                <img src="./assets/img/plantas para dormir.jpg" alt="Plantas que ayudan a dormir mejor">
+                <h3>Plantas que ayudan a dormir mejor</h3>
+            </div>
+            
+            <div class="categoria">
+                <img src="./assets/img/plantas sol.jpg" alt="Plantas resistentes al sol">
+                <h3>Plantas resistentes al sol</h3>
+            </div>
+            
+            <div class="categoria">
+                <img src="./assets/img/esquejes.jpg" alt="Cómo propagar tus plantas">
+                <h3>Cómo propagar tus plantas</h3>
+            </div>
+            
+
+        </section>
+          
+        <!-- Footer -->
+        <footer id="contacto">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- Columna 1: Información de la empresa -->
+                    <div class="footer-column">
+                        <h3>Siempre Verde</h3>
+                        <p>Expertos en plantas de interior y exterior. Hacemos que tu espacio cobre vida con nuestras selecciones de plantas de la más alta calidad.</p>
+                        <!-- Redes sociales -->
+                        <div class="social-links">   <!-- agregar links -->
+                            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna 2: Enlaces útiles -->
+                    <div class="footer-column">
+                        <h3>Enlaces útiles</h3>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="tienda.html">Catálogo completo</a></li>
+                            <li><a href="#ofertas">Ofertas especiales</a></li>
+                            <li><a href="#cuidados">Guía de cuidados</a></li>
+                            <li><a href="#preguntas">Preguntas frecuentes</a></li>
+                        </ul>
+                    </div>
+                    
+        
+        <!-- Footer inferior con derechos de autor y enlaces legales -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
+            <div class="legal-links">
+                <a href="#aviso-legal">Aviso legal</a> | 
+                <a href="#politica-privacidad">Política de privacidad</a> | 
+                <a href="#cookies">Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+</body>
+</html>
