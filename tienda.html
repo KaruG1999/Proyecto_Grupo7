@@ -19,7 +19,7 @@
     <header>
       <div class="container header-content">
         <div class="logo">
-          <img src="/api/placeholder/120/40" alt="Siempre Verde" />
+          <img src="./assets/img/logo2.png"  alt="Siempre Verde" />
         </div>
         <nav>
           <ul>
@@ -27,9 +27,14 @@
             <li><a href="tienda.html" class="active">Tienda</a></li>
             <li><a href="comunidad.html">Comunidad</a></li>
             <li><a href="contacto.html">Contacto</a></li>
+            <!-- para side bar de carrito -->
             <li>
-              <a href="carrito.html"><i class="fas fa-cart-arrow-down"></i></a>
+              <button id="menu-carrito-btn" class="menu-cart-button">
+                <i class="fas fa-cart-arrow-down"></i>
+                <span class="contador-carrito">3</span>
+              </button>
             </li>
+
           </ul>
         </nav>
       </div>
@@ -90,133 +95,6 @@
     <!-- Sección principal de tienda -->
     <section class="tienda-principal">
       <div class="container">
-
-
-
-        <!-- Barra lateral de filtros (sidebar) decidir si agregar o no-->
-
-       <!--  <aside class="filtros-sidebar">
-          <div class="filtro-grupo">
-            <h3>Buscar</h3>
-            <div class="buscador">
-              <input type="text" placeholder="¿Qué estás buscando?" />
-              <button type="submit"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <h3>Categorías</h3>
-            <ul class="filtro-lista">
-              <li>
-                <a href="#plantas-interior">Plantas de Interior <span>(42)</span></a>
-                <ul class="subfiltro-lista">
-                  <li><a href="#">Plantas de sombra</a></li>
-                  <li><a href="#">Plantas tropicales</a></li>
-                  <li><a href="#">Cactus y suculentas</a></li>
-                  <li><a href="#">Plantas aromáticas</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#plantas-exterior"
-                  >Plantas de Exterior <span>(38)</span></a
-                >
-                <ul class="subfiltro-lista">
-                  <li><a href="#">Árboles y arbustos</a></li>
-                  <li><a href="#">Plantas de sol</a></li>
-                  <li><a href="#">Enredaderas</a></li>
-                  <li><a href="#">Plantas ornamentales</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#herramientas">Herramientas <span>(16)</span></a>
-              </li>
-              <li>
-                <a href="#sustratos"
-                  >Sustratos y Fertilizantes <span>(22)</span></a>
-              </li>
-              <li>
-                <a href="#macetas">Macetas y Decoración <span>(35)</span></a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="filtro-grupo">
-            <h3>Precio</h3>
-            <div class="filtro-precio">
-              <input
-                type="range"
-                min="0"
-                max="100000"
-                class="precio-rango"
-                id="precio-rango"
-              />
-              <div class="precio-valores">
-                <span>$0</span>
-                <span>$100.000</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <h3>Nivel de cuidado</h3>
-            <div class="filtro-opciones">
-              <label>
-                <input type="checkbox" name="cuidado" value="bajo" />
-                Bajo mantenimiento
-              </label>
-              <label>
-                <input type="checkbox" name="cuidado" value="medio" />
-                Cuidado moderado
-              </label>
-              <label>
-                <input type="checkbox" name="cuidado" value="alto" />
-                Cuidado específico
-              </label>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <h3>Ambiente</h3>
-            <div class="filtro-opciones">
-              <label>
-                <input type="checkbox" name="ambiente" value="interior" />
-                Interior
-              </label>
-              <label>
-                <input type="checkbox" name="ambiente" value="exterior" />
-                Exterior
-              </label>
-              <label>
-                <input type="checkbox" name="ambiente" value="sombra" />
-                Sombra
-              </label>
-              <label>
-                <input type="checkbox" name="ambiente" value="sol" />
-                Sol directo
-              </label>
-              <label>
-                <input type="checkbox" name="ambiente" value="semi" />
-                Semi-sombra
-              </label>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <h3>Mascotas</h3>
-            <div class="filtro-opciones">
-              <label>
-                <input type="checkbox" name="mascotas" value="si" />
-                Seguro para mascotas
-              </label>
-            </div>
-          </div>
-
-          <button class="btn-aplicar-filtros">Aplicar filtros</button>
-        </aside> -->
-
-
-<!------------------------------------------------------------------>
-
         <!-- Contenido principal de la tienda -->
         <div class="tienda-contenido">
 
@@ -244,249 +122,217 @@
             </div>
           </div>
 
-          <!-- Productos -->
+           <!-- Productos -->
           <div class="productos-grid">
-            <!-- cards con TODOS los productos -->
-            <div id="plantas-interior">
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Monstera.jpeg" alt="Monstera Deliciosa" />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-destacado">Popular</span>
-                    </div>
-                  </div>
-                  
-                  <div class="producto-info">
-                    <h3>Monstera Deliciosa</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Interior</span>
-                      
-                    </div>
-                    <div class="producto-precio">$45.000</div>
-                  </div>
+            <!-- Plantas de Interior -->
+            <div class="producto-item" id="plantas-interior">
+              <div class="producto-imagen">
+                <img src="./assets/img/Monstera.jpeg" alt="Monstera Deliciosa" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-destacado">Popular</span>
                 </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/descarga (5).jpeg" alt="Calathea Ornata" />
-                
-                  </div>
-                  <div class="producto-info">
-                    <h3>Calathea Ornata</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Interior</span>
-                      
-                    </div>
-                    <div class="producto-precio">$38.500</div>
-                  </div>
-                </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Golden Pothos Care _ Your Guide to Growing Lush Pothos - AroidWiki.jpeg" alt="Pothos Golden" />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-oferta">-20%</span>
-                    </div>
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Pothos Golden</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Interior</span>
-                      
-                    </div>
-                    <div class="producto-precio">
-                      <span class="precio-original">$25.000</span>
-                      <span class="precio-actual">$20.000</span>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Snake Plant Laurentii - Sanseviera Laurentii.jpeg" alt="Sanseviera" />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-nuevo">Nuevo</span>
-                    </div>
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Sanseviera Laurentii</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Interior</span>
-                      
-                    </div>
-                    <div class="producto-precio">$32.000</div>
-                  </div>
-                </div>
-    
-                
-            
               </div>
-    
-              <!-- Productos de Exterior -->
-              <div id="plantas-exterior">
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Bougainvillea Plant, Fuschia 87cmh (FI10446FU).jpeg" alt="Bougainvillea" />
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Bougainvillea</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Exterior</span>
-                      
-                    </div>
-                    <div class="producto-precio">$48.000</div>
-                  </div>
+              <div class="producto-info">
+                <h3>Monstera Deliciosa</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Interior</span>
                 </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Lavendel Samen Lavandula Angustifolia Lavendel Kruiden Zaadjes Lavendel Heilkraut Samen Graines De Lavande Officinale Lavendel.jpeg" alt="Lavanda" />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-destacado">Popular</span>
-                    </div>
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Lavanda Francesa</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Aromática</span>
-                      
-                    </div>
-                    <div class="producto-precio">$24.500</div>
-                  </div>
-                </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Jazmín del Cabo_.jpeg" alt="Jazmín del Cabo" />
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Jazmín del Cabo</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Planta de Exterior</span>
-                      
-                    </div>
-                    <div class="producto-precio">$36.000</div>
-                  </div>
-                </div>
-    
+                <div class="producto-precio">$45.000</div>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
-    
-              <!-- Sección Herramientas -->
-              <div id="herramientas">
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/descarga (7).jpeg" alt="Set de Jardinería" />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-oferta">-15%</span>
-                    </div>
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Set de Jardinería 3 piezas</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Herramientas</span>
-                    </div>
-                    <div class="producto-precio">
-                      <span class="precio-original">$22.000</span>
-                      <span class="precio-actual">$18.700</span>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Niwaki Sakagen Floral Scissors.jpeg" alt="Tijera de Podar" />
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Tijera de Podar Profesional</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Herramientas</span>
-                    </div>
-                    <div class="producto-precio">$15.900</div>
-                  </div>
-                </div>
+            </div>
 
-                <div class="producto-item">
-                    <div class="producto-imagen">
-                      <img src="./assets/img/Ficus lyrata.jpeg" alt="Ficus Lyrata" />
-                      
-                    </div>
-                    <div class="producto-info">
-                      <h3>Ficus Lyrata</h3>
-                      <div class="producto-meta">
-                        <span class="producto-categoria">Planta de Interior</span>
-                        
-                      </div>
-                      <div class="producto-precio">$52.000</div>
-                    </div>
-                  </div>
-    
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/descarga (5).jpeg" alt="Calathea Ornata" />
               </div>
-    
-              <!-- Sección Sustratos -->
-              <div id="sustratos">
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img src="./assets/img/Sustratos - Cactus y suculentas _ Universal.jpeg" alt="Sustrato Universal" />
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Sustrato Universal 5L</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Sustratos</span>
-                    </div>
-                    <div class="producto-precio">$8.500</div>
-                  </div>
+              <div class="producto-info">
+                <h3>Calathea Ornata</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Interior</span>
                 </div>
-    
-                <div class="producto-item">
-                  <div class="producto-imagen">
-                    <img
-                      src="./assets/img/Abonos minerales para las plantas.jpeg"
-                      alt="Fertilizante Orgánico"
-                    />
-                    <div class="producto-etiquetas">
-                      <span class="etiqueta-nuevo">Nuevo</span>
-                    </div>
-                    
-                  </div>
-                  <div class="producto-info">
-                    <h3>Fertilizante Orgánico Premium</h3>
-                    <div class="producto-meta">
-                      <span class="producto-categoria">Fertilizantes</span>
-                    </div>
-                    <div class="producto-precio">$12.900</div>
-                  </div>
-                </div>
-
-                <div class="producto-item">
-                    <div class="producto-imagen">
-                      <img
-                        src="assets/img/descarga (6).jpeg"
-                        alt="Cactus Espina Dorada"
-                        />
-                     
-                    </div>
-                    <div class="producto-info">
-                      <h3>Cactus Espina Dorada</h3>
-                      <div class="producto-meta">
-                        <span class="producto-categoria">Cactus</span>
-                        
-                      </div>
-                      <div class="producto-precio">$18.500</div>
-                    </div>
-                  </div>
-
+                <div class="producto-precio">$38.500</div>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
+            </div>
 
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Golden Pothos Care _ Your Guide to Growing Lush Pothos - AroidWiki.jpeg" alt="Pothos Golden" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-oferta">-20%</span>
+                </div>
+              </div>
+              <div class="producto-info">
+                <h3>Pothos Golden</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Interior</span>
+                </div>
+                <div class="producto-precio">
+                  <span class="precio-original">$25.000</span>
+                  <span class="precio-actual">$20.000</span>
+                </div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Snake Plant Laurentii - Sanseviera Laurentii.jpeg" alt="Sanseviera" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-nuevo">Nuevo</span>
+                </div>
+              </div>
+              <div class="producto-info">
+                <h3>Sanseviera Laurentii</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Interior</span>
+                </div>
+                <div class="producto-precio">$32.000</div>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Ficus lyrata.jpeg" alt="Ficus Lyrata" />
+              </div>
+              <div class="producto-info">
+                <h3>Ficus Lyrata</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Interior</span>
+                </div>
+                <div class="producto-precio">$52.000</div>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <!-- Plantas de Exterior / podría sumar en el futuro separación por cat-->
+            <div class="producto-item" id="plantas-exterior">
+              <div class="producto-imagen">
+                <img src="./assets/img/Bougainvillea Plant, Fuschia 87cmh (FI10446FU).jpeg" alt="Bougainvillea" />
+              </div>
+              <div class="producto-info">
+                <h3>Bougainvillea</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Exterior</span>
+                </div>
+                <div class="producto-precio">$48.000</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Lavendel Samen Lavandula Angustifolia Lavendel Kruiden Zaadjes Lavendel Heilkraut Samen Graines De Lavande Officinale Lavendel.jpeg" alt="Lavanda" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-destacado">Popular</span>
+                </div>
+              </div>
+              <div class="producto-info">
+                <h3>Lavanda Francesa</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Aromática</span>
+                </div>
+                <div class="producto-precio">$24.500</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Jazmín del Cabo_.jpeg" alt="Jazmín del Cabo" />
+              </div>
+              <div class="producto-info">
+                <h3>Jazmín del Cabo</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Planta de Exterior</span>
+                </div>
+                <div class="producto-precio">$36.000</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <!-- Herramientas -->
+            <div class="producto-item" id="herramientas">
+              <div class="producto-imagen">
+                <img src="./assets/img/descarga (7).jpeg" alt="Set de Jardinería" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-oferta">-15%</span>
+                </div>
+              </div>
+              <div class="producto-info">
+                <h3>Set de Jardinería 3 piezas</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Herramientas</span>
+                </div>
+                <div class="producto-precio">
+                  <span class="precio-original">$22.000</span>
+                  <span class="precio-actual">$18.700</span>
+                </div>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Niwaki Sakagen Floral Scissors.jpeg" alt="Tijera de Podar" />
+              </div>
+              <div class="producto-info">
+                <h3>Tijera de Podar Profesional</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Herramientas</span>
+                </div>
+                <div class="producto-precio">$15.900</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <!-- Sustratos y Cactus -->
+            <div class="producto-item" id="sustratos">
+              <div class="producto-imagen">
+                <img src="./assets/img/Sustratos - Cactus y suculentas _ Universal.jpeg" alt="Sustrato Universal" />
+              </div>
+              <div class="producto-info">
+                <h3>Sustrato Universal 5L</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Sustratos</span>
+                </div>
+                <div class="producto-precio">$8.500</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="./assets/img/Abonos minerales para las plantas.jpeg" alt="Fertilizante Orgánico" />
+                <div class="producto-etiquetas">
+                  <span class="etiqueta-nuevo">Nuevo</span>
+                </div>
+              </div>
+              <div class="producto-info">
+                <h3>Fertilizante Orgánico Premium</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Fertilizantes</span>
+                </div>
+                <div class="producto-precio">$12.900</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="producto-item">
+              <div class="producto-imagen">
+                <img src="assets/img/descarga (6).jpeg" alt="Cactus Espina Dorada" />
+              </div>
+              <div class="producto-info">
+                <h3>Cactus Espina Dorada</h3>
+                <div class="producto-meta">
+                  <span class="producto-categoria">Cactus</span>
+                </div>
+                <div class="producto-precio">$18.500</div>
+                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+              </div>
+            </div>
           </div>
 
 
@@ -566,5 +412,50 @@
         </div>
       </div>
     </footer>
+
+    <!-- sidebar de carrito -->
+      <!-- Overlay -->
+    <div class="carrito-overlay"></div>
+
+    <!-- Sidebar del carrito -->
+    <div class="carrito-sidebar">
+      <div class="carrito-header">
+        <h2>Tu carrito</h2>
+        <button class="btn-cerrar-carrito">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="carrito-body">
+        <div id="carrito-con-productos" class="carrito-view">
+          <p>Tu carrito tiene productos (simulado).</p>
+        </div>
+        <div id="carrito-vacio" class="carrito-view" style="display: none;">
+          <p>Tu carrito está vacío.</p>
+        </div>
+      </div>
+
+      <div class="carrito-footer">
+        <div class="resumen-carrito">
+          <div class="resumen-linea">
+            <span>Subtotal</span>
+            <span id="subtotal-resumen">$0.00</span>
+          </div>
+          <div class="resumen-linea total">
+            <span>Total</span>
+            <span id="total-resumen">$0.00</span>
+          </div>
+        </div>
+        <div class="carrito-acciones-footer">
+          <button class="btn-outline btn-vaciar">Vaciar carrito</button>
+          <button class="btn-checkout">Pagar</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Enlace a javascript -->
+    <script src="./script.js">
+    </script>
   </body>
 </html>

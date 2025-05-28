@@ -20,7 +20,7 @@
             <div class="container header-content">
                 <div class="logo">
                     <!-- agregar logo -->
-                    <img src="/api/placeholder/120/40" alt="Siempre Verde">
+                    <img src="./assets/img/logo2.png" alt="Siempre Verde">
                 </div>
                 <nav>
                     <ul>  <!-- conectar links a otras paginas -->
@@ -28,12 +28,18 @@
                         <li><a href="tienda.html">Tienda</a></li>
                         <li><a href="comunidad.html">Comunidad</a></li>
                         <li><a href="contacto.html">Contacto</a></li>
-                        <li><a href="carrito.html"><i class="fas fa-cart-arrow-down"></i></a></li>
+                        <!-- para side bar de carrito -->
+                        <li>
+                        <button id="menu-carrito-btn" class="menu-cart-button">
+                            <i class="fas fa-cart-arrow-down"></i>
+                            <span class="contador-carrito">3</span>
+                        </button>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </header>
-    
+
         <!-- Hero Section -->
         <section class="hero" id="inicio">
             <div class="container hero-content">
@@ -156,7 +162,6 @@
 
               
         <!-- Testimonios de los clientes  -->
-
         <section id="testimonios">
             <h2>Clientes satisfechos</h2>
             <div class="slider-container">
@@ -195,7 +200,6 @@
         </section>
           
         <!-- Sección de categorías -->
-
         <section id="categorias-destacadas-home">
             <h2>GreenTips</h2>
             <div class="categoria">    
@@ -273,5 +277,48 @@
     </div>
 </footer>
     
+                            <!-- sidebar de carrito -->
+      <!-- Overlay -->
+    <div class="carrito-overlay"></div>
+
+    <!-- Sidebar del carrito -->
+    <div class="carrito-sidebar">
+      <div class="carrito-header">
+        <h2>Tu carrito</h2>
+        <button class="btn-cerrar-carrito">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="carrito-body">
+        <div id="carrito-con-productos" class="carrito-view">
+          <p>Tu carrito tiene productos (simulado).</p>
+        </div>
+        <div id="carrito-vacio" class="carrito-view" style="display: none;">
+          <p>Tu carrito está vacío.</p>
+        </div>
+      </div>
+
+      <div class="carrito-footer">
+        <div class="resumen-carrito">
+          <div class="resumen-linea">
+            <span>Subtotal</span>
+            <span id="subtotal-resumen">$0.00</span>
+          </div>
+          <div class="resumen-linea total">
+            <span>Total</span>
+            <span id="total-resumen">$0.00</span>
+          </div>
+        </div>
+        <div class="carrito-acciones-footer">
+          <button class="btn-outline btn-vaciar">Vaciar carrito</button>
+          <button class="btn-checkout">Pagar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enlace a javascript -->
+    <script src="./script.js">
+    </script>
 </body>
 </html>
