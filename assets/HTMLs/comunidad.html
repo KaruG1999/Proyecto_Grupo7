@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <!-- // linkeo página a css  -->
+    <!-- añade icono carrito y redes-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- añadir tipografia -->
+
+    <title>Siempre verde</title>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-content">
+        <div class="logo">
+          <!-- agregar logo -->
+          <img src="../img/logo2.png" alt="Siempre Verde" />
+        </div>
+        <nav>
+          <ul>
+            <!-- conectar links a otras paginas -->
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="./tienda.html">Tienda</a></li>
+            <li><a href="./comunidad.html">Comunidad</a></li>
+            <li><a href="./contacto.html">Contacto</a></li>
+            <!-- para side bar de carrito -->
+            <li>
+              <button id="menu-carrito-btn" class="menu-cart-button">
+                <i class="fas fa-cart-arrow-down"></i>
+                <span class="contador-carrito">3</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Banner de Comunidad -->
+    <section class="comunidad-banner">
+      <div class="container">
+        <h1>Comunidad Siempre Verde</h1>
+        <p>
+          Un espacio para compartir experiencias, resolver dudas y crecer juntos
+          como amantes de las plantas.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección de publicación / Formulario -->
+    <section class="nueva-publicacion">
+      <div class="container">
+        <h2>¿Tienes una pregunta o quieres compartir algo?</h2>
+        <div class="publicacion-form">
+          <input
+            type="text"
+            placeholder="Título de tu publicación"
+            class="post-title"
+          />
+          <textarea
+            placeholder="Describe tu consulta, idea o comparte tu experiencia..."
+            class="post-content"
+          ></textarea>
+          <div class="form-footer">
+            <div class="upload-photo">
+              <label for="post-photo">
+                <i class="fas fa-camera"></i>
+                Agregar foto
+              </label>
+              <input
+                type="file"
+                id="post-photo"
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+            <div class="categorias-dropdown">
+              <select name="categoria">
+                <option value="">Selecciona una categoría</option>
+                <option value="cuidados">Cuidados básicos</option>
+                <option value="enfermedades">Enfermedades y plagas</option>
+                <option value="experiencias">Experiencias</option>
+                <option value="propagacion">Propagación</option>
+                <option value="decoracion">Decoración con plantas</option>
+              </select>
+            </div>
+            <button class="btn publicar-btn">Publicar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros y búsqueda -->
+    <section class="filtros-busqueda">
+      <div class="container">
+        <div class="filtros-container">
+          <div class="busqueda">
+            <input type="text" placeholder="Buscar en la comunidad..." />
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="filtros">
+            <select name="filtrar-por">
+              <!-- usar value el javascript() -->
+              <option value="recientes">Más recientes</option>
+              <option value="populares">Más populares</option>
+              <option value="respondidas">Respondidas</option>
+              <option value="sin-responder">Sin responder</option>
+            </select>
+            <select name="filtrar-categoria">
+              <option value="">Todas las categorías</option>
+              <option value="cuidados">Cuidados básicos</option>
+              <option value="enfermedades">Enfermedades y plagas</option>
+              <option value="experiencias">Experiencias</option>
+              <option value="propagacion">Propagación</option>
+              <option value="decoracion">Decoración con plantas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publicaciones de la comunidad -->
+    <section class="publicaciones-comunidad">
+      <div class="container">
+        <!-- Publicación 1 -->
+        <div class="publicacion-card">
+          <div class="publicacion-header">
+            <div class="usuario-info">
+              <img src="../img/usuaria1.jpg" alt="Foto de perfil" />
+              <div class="usuario-detalles">
+                <h4>María Rodríguez</h4>
+                <span class="fecha-publicacion">Hace 2 días</span>
+              </div>
+            </div>
+            <div class="categoria-badge enfermedades">
+              Enfermedades y plagas
+            </div>
+          </div>
+          <div class="publicacion-contenido">
+            <h3>¿Por qué se están amarillando las hojas de mi monstera?</h3>
+            <p>
+              Hace unas semanas noté que las hojas inferiores de mi monstera
+              comenzaron a ponerse amarillas. Riego una vez por semana y está
+              ubicada cerca de una ventana con luz indirecta. ¿Alguien sabe qué
+              puede estar pasando?
+            </p>
+            <div class="publicacion-imagen">
+              <img
+                src="../img/hojas-amarillas-monstera.jpg"
+                alt="Hojas amarillas de monstera"
+              />
+            </div>
+            <div class="publicacion-stats">
+              <span>
+                <i class="fas fa-comment"></i>
+                12 respuestas
+              </span>
+              <span>
+                <i class="fas fa-heart"></i>
+                8 me gusta
+              </span>
+            </div>
+            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
+          </div>
+        </div>
+
+        <!-- Publicación 2 -->
+        <div class="publicacion-card">
+          <div class="publicacion-header">
+            <div class="usuario-info">
+              <img src="../img/usuario2.jpg" alt="Foto de perfil" />
+              <div class="usuario-detalles">
+                <h4>Carlos Mendoza</h4>
+                <span class="fecha-publicacion">Hace 5 días</span>
+              </div>
+            </div>
+            <div class="categoria-badge propagacion">Propagación</div>
+          </div>
+          <div class="publicacion-contenido">
+            <h3>¡Éxito propagando mi pothos!</h3>
+            <p>
+              Quería compartir mi experiencia propagando esquejes de pothos en
+              agua. En solo 3 semanas ya tienen raíces de más de 5 cm. Si
+              alguien tiene dudas sobre cómo hacerlo, ¡puedo compartir mi
+              proceso paso a paso!
+            </p>
+            <div class="publicacion-imagen">
+              <img
+                src="../img/Potos-agua-768x900.jpg"
+                alt="Pothos con raíces en agua"
+              />
+            </div>
+            <div class="publicacion-stats">
+              <span>
+                <i class="fas fa-comment"></i>
+                23 respuestas
+              </span>
+              <span>
+                <i class="fas fa-heart"></i>
+                45 me gusta
+              </span>
+            </div>
+            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
+          </div>
+        </div>
+
+        <!-- Publicación 3 -->
+        <div class="publicacion-card">
+          <div class="publicacion-header">
+            <div class="usuario-info">
+              <img src="../img/usuaria3.jpg" alt="Foto de perfil" />
+              <div class="usuario-detalles">
+                <h4>Laura Sánchez</h4>
+                <span class="fecha-publicacion">Hace 1 semana</span>
+              </div>
+            </div>
+            <div class="categoria-badge cuidados">Cuidados básicos</div>
+          </div>
+          <div class="publicacion-contenido">
+            <h3>Recomendaciones para plantas de baño con poca luz</h3>
+            <p>
+              Estoy buscando recomendaciones para plantas que puedan sobrevivir
+              en un baño con poca luz natural. Me encantaría agregar un poco de
+              verde a este espacio, pero no sé qué plantas podrían adaptarse
+              bien a estas condiciones.
+            </p>
+            <div class="publicacion-stats">
+              <span>
+                <i class="fas fa-comment"></i>
+                18 respuestas
+              </span>
+              <span>
+                <i class="fas fa-heart"></i>
+                12 me gusta
+              </span>
+            </div>
+            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
+          </div>
+        </div>
+
+        <!-- Publicación 4 -->
+        <div class="publicacion-card">
+          <div class="publicacion-header">
+            <div class="usuario-info">
+              <img src="../img/usuario4.jpg" alt="Foto de perfil" />
+              <div class="usuario-detalles">
+                <h4>Eduardo López</h4>
+                <span class="fecha-publicacion">Hace 2 semanas</span>
+              </div>
+            </div>
+            <div class="categoria-badge decoracion">Decoración con plantas</div>
+          </div>
+          <div class="publicacion-contenido">
+            <h3>Mi rincón verde en la oficina</h3>
+            <p>
+              Hoy quiero compartir cómo transformé mi espacio de trabajo con
+              algunas plantas. Incluí sansevierias, pothos y un pequeño cactus.
+              No solo se ve hermoso, sino que ha mejorado mi concentración y
+              bienestar durante la jornada laboral.
+            </p>
+            <div class="publicacion-imagen">
+              <img src="../img/fondo5.jpg" alt="Oficina con plantas" />
+            </div>
+            <div class="publicacion-stats">
+              <span>
+                <i class="fas fa-comment"></i>
+                9 respuestas
+              </span>
+              <span>
+                <i class="fas fa-heart"></i>
+                32 me gusta
+              </span>
+            </div>
+            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paginación -->
+    <div class="paginacion">
+      <a href="#" class="pagina-anterior">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      <ul class="paginas">
+        <li><a href="#" class="pagina-num active">1</a></li>
+        <li><a href="#" class="pagina-num">2</a></li>
+        <li><a href="#" class="pagina-num">3</a></li>
+        <li><span class="pagina-dots">...</span></li>
+        <li><a href="#" class="pagina-num">8</a></li>
+      </ul>
+      <a href="#" class="pagina-siguiente">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
+
+    <!-- Banner de expertos -->
+    <section class="expertos-banner">
+      <div class="container">
+        <div class="expertos-contenido">
+          <div class="expertos-texto">
+            <h2>¿Tienes una consulta específica?</h2>
+            <p>
+              Nuestras expertas en botánica pueden ayudarte a resolver cualquier
+              duda sobre el cuidado de tus plantas.
+            </p>
+            <a href="contacto.html" class="btn">Consultar a una experta</a>
+          </div>
+          <div class="expertos-imagen">
+            <img src="../img/experta en plantas.jpg" alt="Experta en plantas" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de eventos y talleres -->
+    <section class="eventos-comunidad">
+      <div class="container">
+        <h2>Próximos eventos y talleres</h2>
+        <div class="eventos-grid">
+          <div class="evento-card">
+            <div class="evento-fecha">
+              <span class="dia">12</span>
+              <span class="mes">JUN</span>
+            </div>
+            <div class="evento-detalles">
+              <h3>Taller de propagación de suculentas</h3>
+              <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Tienda Siempre Verde - Av. Principal 123
+              </p>
+              <p>
+                <i class="fas fa-clock"></i>
+                17:00 - 19:00 hrs
+              </p>
+              <a href="#" class="btn btn-small">Inscribirse</a>
+            </div>
+          </div>
+
+          <div class="evento-card">
+            <div class="evento-fecha">
+              <span class="dia">20</span>
+              <span class="mes">JUN</span>
+            </div>
+            <div class="evento-detalles">
+              <h3>Charla: Control natural de plagas</h3>
+              <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Centro cultural - Plaza central
+              </p>
+              <p>
+                <i class="fas fa-clock"></i>
+                18:30 - 20:00 hrs
+              </p>
+              <a href="#" class="btn btn-small">Inscribirse</a>
+            </div>
+          </div>
+
+          <div class="evento-card">
+            <div class="evento-fecha">
+              <span class="dia">5</span>
+              <span class="mes">JUL</span>
+            </div>
+            <div class="evento-detalles">
+              <h3>Intercambio de esquejes y semillas</h3>
+              <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Jardín Botánico
+              </p>
+              <p>
+                <i class="fas fa-clock"></i>
+                10:00 - 14:00 hrs
+              </p>
+              <a href="#" class="btn btn-small">Más información</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reglas de la comunidad -->
+    <section class="reglas-comunidad">
+      <div class="container">
+        <div class="reglas-content">
+          <h2>Reglas de nuestra comunidad</h2>
+          <ul class="reglas-lista">
+            <li>
+              <i class="fas fa-check-circle"></i>
+              Sé respetuoso y amable con todos los miembros.
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              Comparte conocimiento y experiencias de manera constructiva.
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              No promociones productos o servicios sin autorización.
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              Respeta la propiedad intelectual y da crédito cuando corresponda.
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              Utiliza un lenguaje apropiado y evita contenido ofensivo.
+            </li>
+          </ul>
+          <p>
+            Tu participación hace que esta comunidad crezca. ¡Gracias por ser
+            parte de Siempre Verde!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div class="container">
+        <div class="footer-content">
+          <!-- Columna 1: Información de la empresa -->
+          <div class="footer-column">
+            <h3>Siempre Verde</h3>
+            <p>
+              Expertos en plantas de interior y exterior. Hacemos que tu espacio
+              cobre vida con nuestras selecciones de plantas de la más alta
+              calidad.
+            </p>
+            <!-- Redes sociales -->
+            <div class="social-links">
+              <!-- agregar links -->
+              <a href="#" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Pinterest">
+                <i class="fab fa-pinterest"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Columna 2: Enlaces útiles -->
+          <div class="footer-column">
+            <h3>Enlaces útiles</h3>
+            <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="./tienda.html">Catálogo completo</a></li>
+              <li><a href="#ofertas">Ofertas especiales</a></li>
+              <li><a href="#cuidados">Guía de cuidados</a></li>
+              <li><a href="#preguntas">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <!-- Footer inferior con derechos de autor y enlaces legales -->
+          <div class="footer-bottom">
+            <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
+            <div class="legal-links">
+              <a href="#aviso-legal">Aviso legal</a>
+              |
+              <a href="#politica-privacidad">Política de privacidad</a>
+              |
+              <a href="#cookies">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- sidebar de carrito -->
+    <!-- Overlay -->
+    <div class="carrito-overlay"></div>
+
+    <!-- Sidebar del carrito -->
+    <div class="carrito-sidebar">
+      <div class="carrito-header">
+        <h2>Tu carrito</h2>
+        <button class="btn-cerrar-carrito">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="carrito-body">
+        <div id="carrito-con-productos" class="carrito-view">
+          <p>Tu carrito tiene productos (simulado).</p>
+        </div>
+        <div id="carrito-vacio" class="carrito-view" style="display: none">
+          <p>Tu carrito está vacío.</p>
+        </div>
+      </div>
+
+      <div class="carrito-footer">
+        <div class="resumen-carrito">
+          <div class="resumen-linea">
+            <span>Subtotal</span>
+            <span id="subtotal-resumen">$0.00</span>
+          </div>
+          <div class="resumen-linea total">
+            <span>Total</span>
+            <span id="total-resumen">$0.00</span>
+          </div>
+        </div>
+        <div class="carrito-acciones-footer">
+          <button class="btn-outline btn-vaciar">Vaciar carrito</button>
+          <button class="btn-checkout">Pagar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enlace a javascript -->
+    <script src="../../script.js"></script>
+  </body>
+</html>

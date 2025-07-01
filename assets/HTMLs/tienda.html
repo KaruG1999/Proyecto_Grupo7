@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/CSS/style.css" />
+    <link rel="stylesheet" href="../CSS/style.css" />
     <!-- Íconos -->
     <link
       rel="stylesheet"
@@ -19,14 +19,15 @@
     <header>
       <div class="container header-content">
         <div class="logo">
-          <img src="./assets/img/logo2.png"  alt="Siempre Verde" />
+          <img src="../img/logo2.png" alt="Siempre Verde" />
         </div>
         <nav>
           <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="tienda.html" class="active">Tienda</a></li>
-            <li><a href="comunidad.html">Comunidad</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
+            <!-- conectar links a otras paginas -->
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="./tienda.html">Tienda</a></li>
+            <li><a href="./comunidad.html">Comunidad</a></li>
+            <li><a href="./contacto.html">Contacto</a></li>
             <!-- para side bar de carrito -->
             <li>
               <button id="menu-carrito-btn" class="menu-cart-button">
@@ -34,7 +35,6 @@
                 <span class="contador-carrito">3</span>
               </button>
             </li>
-
           </ul>
         </nav>
       </div>
@@ -54,37 +54,43 @@
         <div class="categorias-grid">
           <a href="#plantas-interior" class="categoria-tienda">
             <div class="categoria-imagen">
-              <img src="./assets/img/plantas interior.jpg" alt="Plantas de Interior" />
+              <img
+                src="../img/plantas interior.jpg"
+                alt="Plantas de Interior"
+              />
             </div>
             <h3>Plantas de Interior</h3>
           </a>
           <a href="#plantas-exterior" class="categoria-tienda">
             <div class="categoria-imagen">
-              <img src="./assets/img/plantas exterior.jpg" alt="Plantas de Exterior" />
+              <img
+                src="../img/plantas exterior.jpg"
+                alt="Plantas de Exterior"
+              />
             </div>
             <h3>Plantas de Exterior</h3>
           </a>
           <a href="#herramientas" class="categoria-tienda">
             <div class="categoria-imagen">
-              <img src="./assets/img/herramientas.jpg" alt="Herramientas" />
+              <img src="../img/herramientas.jpg" alt="Herramientas" />
             </div>
             <h3>Herramientas</h3>
           </a>
           <a href="#sustratos" class="categoria-tienda">
             <div class="categoria-imagen">
-              <img src="./assets/img/fertilizantes.jpg" alt="Fertilizantes" />
+              <img src="../img/fertilizantes.jpg" alt="Fertilizantes" />
             </div>
             <h3>Sustratos y Fertilizantes</h3>
           </a>
           <a href="#macetas" class="categoria-tienda">
             <div class="categoria-imagen">
-              <img src="./assets/img/macetas y deco.jpg" alt="Macetas" />
+              <img src="../img/macetas y deco.jpg" alt="Macetas" />
             </div>
             <h3>Macetas y Decoración</h3>
           </a>
           <a href="#ofertas" class="categoria-tienda oferta-especial">
             <div class="categoria-imagen">
-              <img src="./assets/img/ofertas.jpg" alt="Ofertas" />
+              <img src="../img/ofertas.jpg" alt="Ofertas" />
             </div>
             <h3>Ofertas Especiales</h3>
           </a>
@@ -97,8 +103,6 @@
       <div class="container">
         <!-- Contenido principal de la tienda -->
         <div class="tienda-contenido">
-
-
           <!-- Control de vista y ordenamiento -->
           <div class="tienda-controles">
             <div class="vista-opciones">
@@ -111,7 +115,8 @@
             </div>
             <div class="ordenar-opciones">
               <label>Ordenar por:</label>
-              <select name="ordenar">   <!-- añado un filtro -->
+              <select name="ordenar">
+                <!-- añado un filtro -->
                 <option value="relevancia">Relevancia</option>
                 <option value="precio_asc">Precio: Menor a mayor</option>
                 <option value="precio_desc">Precio: Mayor a menor</option>
@@ -122,12 +127,12 @@
             </div>
           </div>
 
-           <!-- Productos -->
+          <!-- Productos -->
           <div class="productos-grid">
             <!-- Plantas de Interior -->
             <div class="producto-item" id="plantas-interior">
               <div class="producto-imagen">
-                <img src="./assets/img/Monstera.jpeg" alt="Monstera Deliciosa" />
+                <img src="../img/Monstera.jpeg" alt="Monstera Deliciosa" />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-destacado">Popular</span>
                 </div>
@@ -144,7 +149,7 @@
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/descarga (5).jpeg" alt="Calathea Ornata" />
+                <img src="../img/descarga (5).jpeg" alt="Calathea Ornata" />
               </div>
               <div class="producto-info">
                 <h3>Calathea Ornata</h3>
@@ -158,7 +163,10 @@
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Golden Pothos Care _ Your Guide to Growing Lush Pothos - AroidWiki.jpeg" alt="Pothos Golden" />
+                <img
+                  src="../img/Golden Pothos Care _ Your Guide to Growing Lush Pothos - AroidWiki.jpeg"
+                  alt="Pothos Golden"
+                />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-oferta">-20%</span>
                 </div>
@@ -172,13 +180,16 @@
                   <span class="precio-original">$25.000</span>
                   <span class="precio-actual">$20.000</span>
                 </div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Snake Plant Laurentii - Sanseviera Laurentii.jpeg" alt="Sanseviera" />
+                <img
+                  src="../img/Snake Plant Laurentii - Sanseviera Laurentii.jpeg"
+                  alt="Sanseviera"
+                />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-nuevo">Nuevo</span>
                 </div>
@@ -195,7 +206,7 @@
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Ficus lyrata.jpeg" alt="Ficus Lyrata" />
+                <img src="../img/Ficus lyrata.jpeg" alt="Ficus Lyrata" />
               </div>
               <div class="producto-info">
                 <h3>Ficus Lyrata</h3>
@@ -210,7 +221,10 @@
             <!-- Plantas de Exterior / podría sumar en el futuro separación por cat-->
             <div class="producto-item" id="plantas-exterior">
               <div class="producto-imagen">
-                <img src="./assets/img/Bougainvillea Plant, Fuschia 87cmh (FI10446FU).jpeg" alt="Bougainvillea" />
+                <img
+                  src="../img/Bougainvillea Plant, Fuschia 87cmh (FI10446FU).jpeg"
+                  alt="Bougainvillea"
+                />
               </div>
               <div class="producto-info">
                 <h3>Bougainvillea</h3>
@@ -218,13 +232,16 @@
                   <span class="producto-categoria">Planta de Exterior</span>
                 </div>
                 <div class="producto-precio">$48.000</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Lavendel Samen Lavandula Angustifolia Lavendel Kruiden Zaadjes Lavendel Heilkraut Samen Graines De Lavande Officinale Lavendel.jpeg" alt="Lavanda" />
+                <img
+                  src="../img/Lavendel Samen Lavandula Angustifolia Lavendel Kruiden Zaadjes Lavendel Heilkraut Samen Graines De Lavande Officinale Lavendel.jpeg"
+                  alt="Lavanda"
+                />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-destacado">Popular</span>
                 </div>
@@ -235,13 +252,13 @@
                   <span class="producto-categoria">Aromática</span>
                 </div>
                 <div class="producto-precio">$24.500</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Jazmín del Cabo_.jpeg" alt="Jazmín del Cabo" />
+                <img src="../img/Jazmín del Cabo_.jpeg" alt="Jazmín del Cabo" />
               </div>
               <div class="producto-info">
                 <h3>Jazmín del Cabo</h3>
@@ -249,14 +266,14 @@
                   <span class="producto-categoria">Planta de Exterior</span>
                 </div>
                 <div class="producto-precio">$36.000</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <!-- Herramientas -->
             <div class="producto-item" id="herramientas">
               <div class="producto-imagen">
-                <img src="./assets/img/descarga (7).jpeg" alt="Set de Jardinería" />
+                <img src="../img/descarga (7).jpeg" alt="Set de Jardinería" />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-oferta">-15%</span>
                 </div>
@@ -276,7 +293,10 @@
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Niwaki Sakagen Floral Scissors.jpeg" alt="Tijera de Podar" />
+                <img
+                  src="../img/Niwaki Sakagen Floral Scissors.jpeg"
+                  alt="Tijera de Podar"
+                />
               </div>
               <div class="producto-info">
                 <h3>Tijera de Podar Profesional</h3>
@@ -284,14 +304,17 @@
                   <span class="producto-categoria">Herramientas</span>
                 </div>
                 <div class="producto-precio">$15.900</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <!-- Sustratos y Cactus -->
             <div class="producto-item" id="sustratos">
               <div class="producto-imagen">
-                <img src="./assets/img/Sustratos - Cactus y suculentas _ Universal.jpeg" alt="Sustrato Universal" />
+                <img
+                  src="../img/Sustratos - Cactus y suculentas _ Universal.jpeg"
+                  alt="Sustrato Universal"
+                />
               </div>
               <div class="producto-info">
                 <h3>Sustrato Universal 5L</h3>
@@ -299,13 +322,16 @@
                   <span class="producto-categoria">Sustratos</span>
                 </div>
                 <div class="producto-precio">$8.500</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="./assets/img/Abonos minerales para las plantas.jpeg" alt="Fertilizante Orgánico" />
+                <img
+                  src="../img/Abonos minerales para las plantas.jpeg"
+                  alt="Fertilizante Orgánico"
+                />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-nuevo">Nuevo</span>
                 </div>
@@ -316,13 +342,16 @@
                   <span class="producto-categoria">Fertilizantes</span>
                 </div>
                 <div class="producto-precio">$12.900</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
 
             <div class="producto-item">
               <div class="producto-imagen">
-                <img src="assets/img/descarga (6).jpeg" alt="Cactus Espina Dorada" />
+                <img
+                  src="../img/descarga (6).jpeg"
+                  alt="Cactus Espina Dorada"
+                />
               </div>
               <div class="producto-info">
                 <h3>Cactus Espina Dorada</h3>
@@ -330,19 +359,16 @@
                   <span class="producto-categoria">Cactus</span>
                 </div>
                 <div class="producto-precio">$18.500</div>
-                <button class="btn-añadir-carrito"> Añadir al carrito</button>
+                <button class="btn-añadir-carrito">Añadir al carrito</button>
               </div>
             </div>
           </div>
 
-
-          
-
           <!-- Paginación -->
           <div class="paginacion">
-            <a href="#" class="pagina-anterior"
-              ><i class="fas fa-chevron-left"></i
-            ></a>
+            <a href="#" class="pagina-anterior">
+              <i class="fas fa-chevron-left"></i>
+            </a>
             <ul class="paginas">
               <li><a href="#" class="pagina-num active">1</a></li>
               <li><a href="#" class="pagina-num">2</a></li>
@@ -350,14 +376,13 @@
               <li><span class="pagina-dots">...</span></li>
               <li><a href="#" class="pagina-num">8</a></li>
             </ul>
-            <a href="#" class="pagina-siguiente"
-              ><i class="fas fa-chevron-right"></i
-            ></a>
+            <a href="#" class="pagina-siguiente">
+              <i class="fas fa-chevron-right"></i>
+            </a>
           </div>
         </div>
       </div>
     </section>
-
 
     <!-- Footer -->
     <footer id="contacto">
@@ -373,18 +398,18 @@
             </p>
             <!-- Redes sociales -->
             <div class="social-links">
-              <a href="#" class="social-icon" aria-label="Facebook"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a href="#" class="social-icon" aria-label="Instagram"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a href="#" class="social-icon" aria-label="Twitter"
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a href="#" class="social-icon" aria-label="Pinterest"
-                ><i class="fab fa-pinterest"></i
-              ></a>
+              <a href="#" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Pinterest">
+                <i class="fab fa-pinterest"></i>
+              </a>
             </div>
           </div>
 
@@ -393,7 +418,7 @@
             <h3>Enlaces útiles</h3>
             <ul>
               <li><a href="index.html">Inicio</a></li>
-              <li><a href="tienda.html">Catálogo completo</a></li>
+              <li><a href="./tienda.html">Catálogo completo</a></li>
               <li><a href="#ofertas">Ofertas especiales</a></li>
               <li><a href="#cuidados">Guía de cuidados</a></li>
               <li><a href="#preguntas">Preguntas frecuentes</a></li>
@@ -405,8 +430,10 @@
         <div class="footer-bottom">
           <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
           <div class="legal-links">
-            <a href="#aviso-legal">Aviso legal</a> |
-            <a href="#politica-privacidad">Política de privacidad</a> |
+            <a href="#aviso-legal">Aviso legal</a>
+            |
+            <a href="#politica-privacidad">Política de privacidad</a>
+            |
             <a href="#cookies">Cookies</a>
           </div>
         </div>
@@ -414,7 +441,7 @@
     </footer>
 
     <!-- sidebar de carrito -->
-      <!-- Overlay -->
+    <!-- Overlay -->
     <div class="carrito-overlay"></div>
 
     <!-- Sidebar del carrito -->
@@ -430,7 +457,7 @@
         <div id="carrito-con-productos" class="carrito-view">
           <p>Tu carrito tiene productos (simulado).</p>
         </div>
-        <div id="carrito-vacio" class="carrito-view" style="display: none;">
+        <div id="carrito-vacio" class="carrito-view" style="display: none">
           <p>Tu carrito está vacío.</p>
         </div>
       </div>
@@ -453,9 +480,7 @@
       </div>
     </div>
 
-
     <!-- Enlace a javascript -->
-    <script src="./script.js">
-    </script>
+    <script src="../../script.js"></script>
   </body>
 </html>
