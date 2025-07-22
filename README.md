@@ -54,16 +54,16 @@ El sitio web está compuesto por cinco secciones principales:
 
 ## 📋 Checklist Técnico
 
-✅ **5 páginas** navegables con HTML semántico  
-✅ CSS con **Flexbox, Grid y Media Queries** (responsive)  
-✅ **Template literals** para generar HTML dinámico
-✅ **Condicionales** (`if`, `switch`) para lógica de stock, validaciones y respuestas
-✅ **Bucles** (`forEach`, `map`, `reduce`) para mostrar productos, carrito y más
-✅ **Arrow functions** en todas las funciones modernas
-✅ **Módulo externo**: `EmailJS` para el formulario de contacto
-✅ **Base de datos simulada en JSON**: `plantasDB` en archivo `.js`
-✅ **Almacenamiento de datos**: `localStorage`
-✅ **API pública externa**: `Perenual API` para mostrar información botánica
+- ✅ **5 páginas** navegables con HTML semántico  
+- ✅ CSS con **Flexbox, Grid y Media Queries** (responsive)  
+- ✅ **Template literals** para generar HTML dinámico
+- ✅ **Condicionales** (`if`, `switch`) para lógica de stock, validaciones y respuestas
+- ✅ **Bucles** (`forEach`, `map`, `reduce`) para mostrar productos, carrito y más
+- ✅ **Arrow functions** en todas las funciones modernas
+- ✅ **Módulo externo**: `EmailJS` para el formulario de contacto
+- ✅ **Base de datos simulada en JSON**: `plantasDB` en archivo `.js`
+- ✅ **Almacenamiento de datos**: `localStorage`
+- ✅ **API pública externa**: `Perenual API` para mostrar información botánica
 
 ---
 
