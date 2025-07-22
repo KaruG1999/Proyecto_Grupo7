@@ -781,3 +781,524 @@ function debugCarrito() {
 }
 
 window.debugCarrito = debugCarrito;
+
+/* ------------------------------  Integracion de API Perenual ------------------------------ */
+
+(function () {
+  // Referencias DOM
+  const modal = document.getElementById('plantModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  const closeModal = document.getElementById('closeModal');
+
+  // clave API de Perenual
+  const PERENUAL_API_KEY = 'sk-nSWN687047006832811382';
+  const PERENUAL_BASE_URL = 'https://perenual.com/api/species-list';
+
+  // Mapeo de nombres de plantas del HTML a nombres buscables en la API
+  const plantNameMapping = {
+    'Monstera Deliciosa': {
+      search: 'monstera deliciosa',
+      fallbackSearch: 'monstera',
+      spanish: 'Monstera',
+    },
+    'Calathea Ornata': {
+      search: 'calathea ornata',
+      fallbackSearch: 'calathea',
+      spanish: 'Calatea',
+    },
+    'Pothos Golden': {
+      search: 'golden pothos',
+      fallbackSearch: 'pothos',
+      spanish: 'Potos Dorado',
+    },
+    'Sanseviera Laurentii': {
+      search: 'sansevieria trifasciata',
+      fallbackSearch: 'sansevieria',
+      spanish: 'Lengua de Suegra',
+    },
+    'Ficus Lyrata': {
+      search: 'ficus lyrata',
+      fallbackSearch: 'fiddle leaf fig',
+      spanish: 'Ficus Lira',
+    },
+    Bougainvillea: {
+      search: 'bougainvillea',
+      fallbackSearch: 'bougainvillea spectabilis',
+      spanish: 'Buganvilla',
+    },
+    'Lavanda Francesa': {
+      search: 'lavandula stoechas',
+      fallbackSearch: 'lavender',
+      spanish: 'Lavanda',
+    },
+    'Jazmín del Cabo': {
+      search: 'gardenia jasminoides',
+      fallbackSearch: 'jasmine',
+      spanish: 'Jazmín',
+    },
+    'Cactus Espina Dorada': {
+      search: 'echinocactus',
+      fallbackSearch: 'barrel cactus',
+      spanish: 'Cactus',
+    },
+  };
+
+  // Información de respaldo en español
+  const fallbackPlantInfo = {
+    'Monstera Deliciosa': {
+      scientificName: 'Monstera deliciosa',
+      description:
+        'Planta tropical conocida por sus hojas grandes con agujeros naturales. Perfecta para interiores con buena luminosidad.',
+      care: {
+        sunlight: 'Luz indirecta brillante',
+        watering: 'Regar cuando la superficie esté seca',
+        maintenance: 'Fácil - Nivel principiante',
+        indoor: true,
+        tips: [
+          'Requiere humedad moderada',
+          'Crece rápidamente',
+          'Necesita soporte para trepar',
+        ],
+      },
+    },
+    'Calathea Ornata': {
+      scientificName: 'Calathea ornata',
+      description:
+        'Planta ornamental con hojas decorativas que se pliegan por la noche. Ideal para espacios interiores.',
+      care: {
+        sunlight: 'Luz filtrada, evitar sol directo',
+        watering: 'Mantener tierra húmeda pero no encharcada',
+        maintenance: 'Medio - Requiere atención',
+        indoor: true,
+        tips: [
+          'Alta humedad necesaria',
+          'Sensible a químicos del agua',
+          'Las hojas se mueven con la luz',
+        ],
+      },
+    },
+    'Pothos Golden': {
+      scientificName: 'Epipremnum aureum',
+      description:
+        'Planta colgante muy resistente con hojas verdes y amarillas. Excelente para principiantes.',
+      care: {
+        sunlight: 'Luz indirecta, tolera poca luz',
+        watering: 'Regar cuando esté seca',
+        maintenance: 'Muy fácil - Perfecta para principiantes',
+        indoor: true,
+        tips: [
+          'Se puede propagar fácilmente',
+          'Purifica el aire',
+          'Crece rápido',
+        ],
+      },
+    },
+    'Sanseviera Laurentii': {
+      scientificName: 'Sansevieria trifasciata',
+      description:
+        'Planta suculenta muy resistente con hojas verticales. Perfecta para oficinas y espacios con poca luz.',
+      care: {
+        sunlight: 'Tolera desde poca luz hasta luz brillante',
+        watering: 'Regar muy poco, cada 2-3 semanas',
+        maintenance: 'Muy fácil - Casi indestructible',
+        indoor: true,
+        tips: [
+          'Purifica el aire nocturno',
+          'Tolera negligencia',
+          'Crece lentamente',
+        ],
+      },
+    },
+    'Ficus Lyrata': {
+      scientificName: 'Ficus lyrata',
+      description:
+        'Árbol de interior con hojas grandes en forma de violín. Declaración perfecta para espacios grandes.',
+      care: {
+        sunlight: 'Luz indirecta brillante y constante',
+        watering: 'Regar cuando los primeros 2-3 cm estén secos',
+        maintenance: 'Medio - Requiere consistencia',
+        indoor: true,
+        tips: [
+          'No le gustan los cambios',
+          'Necesita espacio para crecer',
+          'Hojas sensibles al polvo',
+        ],
+      },
+    },
+  };
+
+  // Función para traducir términos comunes del inglés al español
+  function translateToSpanish(text) {
+    if (!text) return 'No especificado';
+
+    const translations = {
+      'full sun': 'Sol directo',
+      'partial sun': 'Sol parcial',
+      'partial shade': 'Sombra parcial',
+      'full shade': 'Sombra completa',
+      'bright indirect light': 'Luz indirecta brillante',
+      'low light': 'Poca luz',
+      moderate: 'Moderado',
+      low: 'Bajo',
+      high: 'Alto',
+      frequent: 'Frecuente',
+      occasional: 'Ocasional',
+      rare: 'Poco frecuente',
+      average: 'Promedio',
+      minimum: 'Mínimo',
+      maximum: 'Máximo',
+      indoor: 'Interior',
+      outdoor: 'Exterior',
+      perennial: 'Perenne',
+      annual: 'Anual',
+      biennial: 'Bienal',
+      easy: 'Fácil',
+      moderate: 'Moderado',
+      difficult: 'Difícil',
+    };
+
+    let translated = text.toLowerCase();
+    Object.entries(translations).forEach(([eng, esp]) => {
+      translated = translated.replace(new RegExp(eng, 'gi'), esp);
+    });
+
+    return translated.charAt(0).toUpperCase() + translated.slice(1);
+  }
+
+  // Función para buscar en la API de Perenual
+  async function searchPlantInPerenual(plantName, isRetry = false) {
+    const plantInfo = plantNameMapping[plantName];
+    if (!plantInfo) {
+      throw new Error(`No se encontró mapeo para: ${plantName}`);
+    }
+
+    const searchTerm = isRetry ? plantInfo.fallbackSearch : plantInfo.search;
+    const url = `${PERENUAL_BASE_URL}?key=${PERENUAL_API_KEY}&q=${encodeURIComponent(
+      searchTerm
+    )}&indoor=1`;
+
+    console.log(`Buscando: ${searchTerm} para ${plantName}`);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        throw new Error('Límite de API excedido. Intenta más tarde.');
+      }
+      throw new Error(`Error de API: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.data || data.data.length === 0) {
+      if (!isRetry && plantInfo.fallbackSearch) {
+        console.log(
+          `No se encontró con "${searchTerm}", intentando con "${plantInfo.fallbackSearch}"`
+        );
+        return await searchPlantInPerenual(plantName, true);
+      }
+      throw new Error('No se encontraron resultados en la API');
+    }
+
+    return data.data[0]; // Retorna el primer resultado
+  }
+
+  // Función para mostrar la información de la planta desde la API
+  function displayPlantInfoFromAPI(plantData, originalName) {
+    const plantMapping = plantNameMapping[originalName];
+    const spanishName = plantMapping ? plantMapping.spanish : originalName;
+
+    let infoHTML = `
+      <div class="plant-info">
+        <div class="plant-header">
+    `;
+
+    /* // Imagen de la planta
+    if (plantData.default_image && plantData.default_image.regular_url) {
+      infoHTML += `
+        <img src="${plantData.default_image.regular_url}" alt="${plantData.common_name}" class="plant-image" 
+             onerror="this.style.display='none'" />
+      `;
+    } */
+
+    infoHTML += `
+      <div class="plant-basic-info">
+        <h3>${spanishName}</h3>
+        <p class="scientific-name">${
+          plantData.scientific_name || 'Nombre científico no disponible'
+        }</p>
+      </div>
+    </div>
+    `;
+
+    // Información detallada    (cambiar por iconos elegidos en carpeta de imágenes)
+    const infoItems = [
+      {
+        icon: '🏠',
+        title: 'Ubicación',
+        value: plantData.indoor
+          ? 'Apta para interior '
+          : 'Principalmente exterior',
+        show: true,
+      },
+      {
+        icon: '☀️',
+        title: 'Iluminación',
+        value: plantData.sunlight
+          ? plantData.sunlight.map((s) => translateToSpanish(s)).join(', ')
+          : 'Consultar especialista',
+        show: true,
+      },
+      {
+        icon: '💧',
+        title: 'Riego',
+        value: translateToSpanish(plantData.watering),
+        show: plantData.watering,
+      },
+      {
+        icon: '🌿',
+        title: 'Mantenimiento',
+        value: translateToSpanish(plantData.care_level),
+        show: plantData.care_level,
+      },
+      {
+        icon: '🔄',
+        title: 'Ciclo de vida',
+        value: translateToSpanish(plantData.cycle),
+        show: plantData.cycle,
+      },
+    ];
+
+    infoItems.forEach((item) => {
+      if (item.show && item.value && item.value !== 'No especificado') {
+        infoHTML += `
+          <div class="info-item">
+            <div class="info-icon">${item.icon}</div>
+            <div class="info-content">
+              <h4>${item.title}</h4>
+              <p>${item.value}</p>
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    // Tags de cuidado
+    if (plantData.sunlight || plantData.watering) {
+      infoHTML += `
+        <div class="info-item">
+          <div class="info-icon">🏷️</div>
+          <div class="info-content">
+            <h4>Resumen de cuidados</h4>
+            <div class="care-tags">
+      `;
+
+      if (plantData.sunlight) {
+        plantData.sunlight.slice(0, 3).forEach((sun) => {
+          infoHTML += `<span class="care-tag">☀️ ${translateToSpanish(
+            sun
+          )}</span>`;
+        });
+      }
+
+      if (plantData.watering) {
+        infoHTML += `<span class="care-tag">💧 ${translateToSpanish(
+          plantData.watering
+        )}</span>`;
+      }
+
+      if (plantData.indoor) {
+        infoHTML += `<span class="care-tag">🏠 Interior</span>`;
+      }
+
+      infoHTML += `
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    infoHTML += '</div>';
+    modalBody.innerHTML = infoHTML;
+  }
+
+  // Función para mostrar información de respaldo en caso de error en API
+  function displayFallbackInfo(originalName) {
+    const fallback = fallbackPlantInfo[originalName];
+
+    if (!fallback) {
+      modalBody.innerHTML = `
+        <div class="no-info">
+          <h3>Información no disponible</h3>
+          <p>No pudimos obtener información específica para <strong>"${originalName}"</strong>.</p>
+          <p>Te recomendamos consultar con un especialista en jardinería.</p>
+        </div>
+      `;
+      return;
+    }
+
+    let infoHTML = `
+      <div class="plant-info">
+        <div class="fallback-info">
+          <h4>Información básica</h4>
+          <p>Datos de nuestro catálogo local.</p>
+        </div>
+        
+        <div class="plant-basic-info">
+          <h3>${originalName}</h3>
+          <p class="scientific-name">${fallback.scientificName}</p>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">📝</div>
+          <div class="info-content">
+            <h4>Descripción</h4>
+            <p>${fallback.description}</p>
+          </div>
+        </div>
+    `;
+
+    // Información de cuidados
+    const careItems = [
+      { icon: '☀️', title: 'Iluminación', value: fallback.care.sunlight },
+      { icon: '💧', title: 'Riego', value: fallback.care.watering },
+      { icon: '🌿', title: 'Dificultad', value: fallback.care.maintenance },
+      {
+        icon: '🏠',
+        title: 'Ubicación',
+        value: fallback.care.indoor ? 'Apta para interior' : 'Exterior',
+      },
+    ];
+
+    careItems.forEach((item) => {
+      if (item.value) {
+        infoHTML += `
+          <div class="info-item">
+            <div class="info-icon">${item.icon}</div>
+            <div class="info-content">
+              <h4>${item.title}</h4>
+              <p>${item.value}</p>
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    // Consejos adicionales
+    if (fallback.care.tips && fallback.care.tips.length > 0) {
+      infoHTML += `
+        <div class="info-item">
+          <div class="info-icon">💡</div>
+          <div class="info-content">
+            <h4>Consejos adicionales</h4>
+            <div class="care-tags">
+      `;
+
+      fallback.care.tips.forEach((tip) => {
+        infoHTML += `<span class="care-tag">${tip}</span>`;
+      });
+
+      infoHTML += `
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    infoHTML += '</div>';
+    modalBody.innerHTML = infoHTML;
+  }
+
+  // Función para mostrar error si falla la API
+  function displayError(plantName, errorMessage) {
+    modalBody.innerHTML = `
+      <div class="error-message">
+        <h3>Error de conexión</h3>
+        <p>No pudimos obtener información para <strong>"${plantName}"</strong>.</p>
+        <p><small>Detalle: ${errorMessage}</small></p>
+        <p>Mostrando información básica disponible...</p>
+      </div>
+    `;
+
+    // Mostrar información de respaldo después del error
+    setTimeout(() => {
+      displayFallbackInfo(plantName);
+    }, 1500);
+  }
+
+  // Función principal para manejar el clic en las imágenes
+  async function handleImageClick(event) {
+    const img = event.target;
+
+    // Verificar que es una imagen de producto
+    if (!img.matches('.producto-imagen img')) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const productItem = img.closest('.producto-item');
+    if (!productItem) {
+      console.error('No se encontró el contenedor del producto');
+      return;
+    }
+
+    const h3 = productItem.querySelector('.producto-info h3');
+    if (!h3) {
+      console.error('No se encontró el nombre de la planta');
+      return;
+    }
+
+    const plantName = h3.textContent.trim();
+    console.log('Buscando información para:', plantName);
+
+    // Configurar y mostrar el modal
+    modalTitle.textContent = `${plantName} - Información de cuidados`;
+    modalBody.innerHTML =
+      '<div class="loading">Consultando base de datos de plantas...</div>';
+    modal.style.display = 'block';
+
+    try {
+      // Intentar buscar en la API
+      const plantData = await searchPlantInPerenual(plantName);
+      displayPlantInfoFromAPI(plantData, plantName);
+      console.log('Información obtenida de la API');
+    } catch (error) {
+      console.error('Error al buscar en la API:', error.message);
+      displayError(plantName, error.message);
+    }
+  }
+
+  // Event listeners
+  document.addEventListener('click', handleImageClick);
+
+  // Cerrar modal
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
+
+  // Cerrar modal al hacer clic en el overlay
+  window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Cerrar modal con Escape
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.style.display === 'block') {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Verificación inicial en consola (me ayuda a ver si la API está funcionando)
+  console.log('API Perenual integrada correctamente');
+  console.log('Usando clave API propia');
+  console.log(
+    'Hacer clic en cualquier imagen de planta para ver su información'
+  );
+  
+})();
