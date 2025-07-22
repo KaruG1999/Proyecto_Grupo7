@@ -1,25 +1,26 @@
-// ===== VARIABLES GLOBALES =====
 let carritoCompras = []; // Carrito de compras inicializado vacío
 
-// ===== CONFIGURACIÓN EMAILJS =====
+//  CONFIGURACIÓN EMAILJS (libreria externa)
 const CONFIGURACION_EMAILJS = {
   serviceID: 'service_9x068xa',
   templateID: 'template_5nu5qr7',
   publicKey: 'E6oF3-Hyj5trqa7rL',
 };
 
-// ===== INICIALIZACIÓN =====
+//  INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('Iniciando aplicación...');
+  console.log('Iniciando aplicación...'); // Mensaje de inicio en consola
   inicializarAplicacion();
 });
+
 // inicializarAplicacion es la función principal que se llama al cargar el DOM
 function inicializarAplicacion() {
   cargarCarritoDesdeStorage();
+  inicializarStock();
   inicializarFormularioContacto();
   inicializarCarritoCompras();
   configurarEventListeners();
-  console.log('Aplicación inicializada correctamente');
+  console.log('Aplicación inicializada correctamente'); // Mensaje de éxito en consola
 }
 
 // ===== GESTIÓN DE CARRITO EN STORAGE =====
@@ -56,7 +57,7 @@ function inicializarCarritoCompras() {
   mostrarCarrito();
 }
 
-// Configura los botones y eventos del carrito
+// Eventos para abrir, cerrar y vaciar el carrito
 function configurarEventListenersCarrito() {
   const btnAbrirCarrito = document.querySelector('#menu-carrito-btn');
   const btnCerrarCarrito = document.querySelector('.btn-cerrar-carrito');
@@ -77,7 +78,6 @@ function configurarEventListenersCarrito() {
   }
 }
 
-// ERROR : chequear que muestra precios en 0 => Solucionado
 function extraerDatosProducto(elemento) {
   const imagen = elemento.querySelector('.producto-imagen img');
   const nombre = elemento.querySelector('h3');
@@ -103,6 +103,44 @@ function extraerDatosProducto(elemento) {
   };
 }
 
+/* Funciones de actualizacion de Base de datos */
+
+// BUSCAR PLANTA EN DB
+function buscarPlantaEnDB(nombre) {
+  return plantasDB.find((planta) => planta.nombre === nombre);
+}
+
+// VERIFICAR STOCK DISPONIBLE
+function verificarStockDisponible(nombrePlanta, cantidadDeseada) {
+  const planta = buscarPlantaEnDB(nombrePlanta);
+  if (!planta) return false;
+  return planta.cantidad >= cantidadDeseada;
+}
+
+// REDUCIR STOCK de db (cuando se añade al carrito)
+function reducirStock(nombrePlanta, cantidad) {
+  const planta = buscarPlantaEnDB(nombrePlanta);
+  if (planta && planta.cantidad >= cantidad) {
+    planta.cantidad -= cantidad;
+    console.log(`Stock reducido: ${nombrePlanta} - Quedan ${planta.cantidad}`);
+    return true;
+  }
+  return false;
+}
+
+// RESTAURAR STOCK (cuando se elimina del carrito)
+function restaurarStock(nombrePlanta, cantidad) {
+  const planta = buscarPlantaEnDB(nombrePlanta);
+  if (planta) {
+    planta.cantidad += cantidad;
+    console.log(
+      `Stock restaurado: ${nombrePlanta} - Total: ${planta.cantidad}`
+    );
+    return true;
+  }
+  return false;
+}
+
 function añadirProductoAlCarrito(boton) {
   const productoElement = boton.closest('.producto-item'); // Buscar el elemento del producto más cercano al botón clickeado
   if (!productoElement) {
@@ -111,20 +149,36 @@ function añadirProductoAlCarrito(boton) {
   }
 
   const datosProducto = extraerDatosProducto(productoElement);
-  console.log('Datos del producto extraídos:', datosProducto);
+
+  // VERIFICAR STOCK DISPONIBLE EN BD
+  if (!verificarStockDisponible(datosProducto.nombre, 1)) {
+    mostrarNotificacion(
+      `No hay stock suficiente de ${datosProducto.nombre}`,
+      'error'
+    );
+    return;
+  }
 
   // Verificar si ya existe en el carrito (por nombre)
   const productoEnCarrito = carritoCompras.find(
     (item) => item.nombre === datosProducto.nombre
   );
-  // Si el producto ya está en el carrito, aumentar la cantidad
-  // Si no, añadirlo como un nuevo producto
+
   if (productoEnCarrito) {
-    productoEnCarrito.cantidad += 1;
-    console.log('Cantidad aumentada para:', datosProducto.nombre);
+    // Verificar si podemos añadir uno más
+    if (!verificarStockDisponible(datosProducto.nombre, 1)) {
+      mostrarNotificacion(
+        `No hay más stock de ${datosProducto.nombre}`,
+        'error'
+      );
+      return;
+    }
+
+    productoEnCarrito.cantidad += 1; // Si el producto ya está en el carrito, aumentar la cantidad
+    reducirStock(datosProducto.nombre, 1); // Reducir stock en la base de datos simulada
   } else {
-    carritoCompras.push(datosProducto);
-    console.log('Nuevo producto añadido:', datosProducto.nombre);
+    carritoCompras.push(datosProducto); // Si no, añadirlo como un nuevo producto
+    reducirStock(datosProducto.nombre, 1);
   }
 
   guardarCarritoEnStorage();
@@ -140,6 +194,11 @@ function añadirProductoAlCarrito(boton) {
 
 function eliminarProductoDelCarrito(idProducto) {
   const productoAntes = carritoCompras.find((item) => item.id === idProducto); // Buscar el producto antes de eliminarlo y lo almacena en una variable
+  if (productoAntes) {
+    // RESTAURAR STOCK EN BD ANTES DE ELIMINAR
+    restaurarStock(productoAntes.nombre, productoAntes.cantidad);
+  }
+
   carritoCompras = carritoCompras.filter((item) => item.id !== idProducto); // Filtrar el carrito para eliminar el producto con el ID especificado
   guardarCarritoEnStorage();
   actualizarContadorCarrito();
@@ -163,6 +222,22 @@ function cambiarCantidadProducto(idProducto, nuevaCantidad) {
     eliminarProductoDelCarrito(idProducto);
     return;
   }
+  /* verifica stock de la bd al agregar al carrito un producto */
+  const diferencia = nuevaCantidad - productoEnCarrito.cantidad;
+  if (diferencia > 0) {
+    // AUMENTAR CANTIDAD - verificar stock
+    if (!verificarStockDisponible(productoEnCarrito.nombre, diferencia)) {
+      mostrarNotificacion(
+        `No hay stock suficiente de ${productoEnCarrito.nombre}`,
+        'error'
+      );
+      return;
+    }
+    reducirStock(productoEnCarrito.nombre, diferencia);
+  } else if (diferencia < 0) {
+    // DISMINUIR CANTIDAD - restaurar stock
+    restaurarStock(productoEnCarrito.nombre, Math.abs(diferencia));
+  }
 
   productoEnCarrito.cantidad = nuevaCantidad;
   guardarCarritoEnStorage();
@@ -172,12 +247,24 @@ function cambiarCantidadProducto(idProducto, nuevaCantidad) {
 
 function vaciarCarrito() {
   if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+    carritoCompras.forEach((item) => {
+      restaurarStock(item.nombre, item.cantidad); // RESTAURAR TODO EL STOCK de db ANTES DE VACIAR
+    });
     carritoCompras = [];
     guardarCarritoEnStorage();
     actualizarContadorCarrito();
     mostrarCarrito();
     mostrarNotificacion('Carrito vaciado', 'success');
   }
+}
+
+// CARGAR STOCK bd AL INICIALIZAR
+function inicializarStock() {
+  carritoCompras.forEach((item) => {
+    // Restaurar stock si hay productos en carrito guardado
+    reducirStock(item.nombre, item.cantidad);
+  });
+  console.log('Stock inicializado correctamente');
 }
 
 function abrirCarrito() {
@@ -459,6 +546,7 @@ async function enviarEmailContacto(datos) {
     // Parámetros que se envían al template de EmailJS
     from_name: datos.nombre,
     from_email: datos.email,
+    reply_to: datos.email, // 👈 Esto permite que al responder, vaya al cliente
     phone: datos.telefono || 'No proporcionado',
     subject: datos.asunto,
     message: datos.mensaje,
@@ -501,10 +589,10 @@ function configurarEventListeners() {
   });
 
   // Configurar filtros y ordenamiento
-  const ordenarSelect = document.querySelector('select[name="ordenar"]');
+  /* const ordenarSelect = document.querySelector('select[name="ordenar"]');
   if (ordenarSelect) {
     ordenarSelect.addEventListener('change', ordenarProductos);
-  }
+  } */
 
   // Configurar vista (grid/list)
   document.querySelectorAll('.vista-btn').forEach((btn) => {
@@ -524,49 +612,8 @@ function configurarEventListeners() {
   });
 }
 
-// EVALUAR si es realmente necesario
-/* function ordenarProductos() {
-  const ordenarSelect = document.querySelector('select[name="ordenar"]');
-  const productosGrid = document.querySelector('.productos-grid');
-
-  if (!ordenarSelect || !productosGrid) return;
-
-  const productos = Array.from(productosGrid.children);
-  const criterio = ordenarSelect.value;
-
-  productos.sort((a, b) => {
-    const nombreA = a.querySelector('h3').textContent.trim();
-    const nombreB = b.querySelector('h3').textContent.trim();
-    const precioA =
-      parseInt(
-        a.querySelector('.precio-actual').textContent.replace(/[^\d]/g, '')
-      ) || 0;
-    const precioB =
-      parseInt(
-        b.querySelector('.precio-actual').textContent.replace(/[^\d]/g, '')
-      ) || 0;
-
-    switch (criterio) {
-      case 'nombre_asc':
-        return nombreA.localeCompare(nombreB);
-      case 'nombre_desc':
-        return nombreB.localeCompare(nombreA);
-      case 'precio_asc':
-        return precioA - precioB;
-      case 'precio_desc':
-        return precioB - precioA;
-      default:
-        return 0;
-    }
-  });
-
-  productos.forEach((producto) => productosGrid.appendChild(producto));
-} */
-
 // ===== FUNCIONES AUXILIARES =====
-function formatearPrecio(precio) {
-  return precio.toLocaleString('es-CO');
-}
+const formatearPrecio = (precio) => precio.toLocaleString('es-CO');
 
 function mostrarEstadoCarga(mostrar) {
   const btnSubmit = document.querySelector('.btn-contacto');
