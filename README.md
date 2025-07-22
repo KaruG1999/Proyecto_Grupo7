@@ -1,108 +1,90 @@
 # 🌿 Siempre Verde - Tienda de Plantas
 
-**Grupo 7 - Curso de Diseño Web | Ingenias+ - Fundación YPF & Jump Educación**
-
+**Grupo 7 - Curso de Diseño Web | Ingenias+ - Fundación YPF & Jump Educación**  
 **Realizado por:**
 
-- Karen Giannetto - [email]
+- Karen Giannetto
+- Jessica Baeza
 
 ---
 
 ## 📖 Descripción del Proyecto
 
-Siempre Verde es una tienda de plantas en línea desarrollada como proyecto final del curso de Diseño Web dictado por Ingenias+ en conjunto con Fundación YPF y Jump Educación.
+Siempre Verde es una tienda de plantas online creada como entrega final del curso de Desarrollo Web. Su objetivo es brindar una experiencia completa para usuarios que buscan adquirir plantas, informarse sobre sus cuidados y participar en una comunidad de amantes de la naturaleza.
 
-Este sitio web fue diseñado pensando en personas amantes de las plantas que buscan un espacio donde puedan adquirir productos, conectarse con una comunidad y comunicarse fácilmente con nosotras.
-
----
-
-## 🎨 Proceso de Maquetación
-
-El diseño y prototipado del sitio web se realizó completamente en Figma, donde documentamos todo el proceso creativo:
-
-**[Ver Proceso de Diseño en Figma](https://www.figma.com/design/tFmDQ4yEiUiiVdW4z2r0tI/Proyect-Ingenias?node-id=0-1&t=QRtGsVc4yzrsolrF-1)**
-
-En este archivo de Figma encontrarás:
-
-- 📝 Notas de ideas y conceptos iniciales
-- 🖼️ Mockups de baja, media y alta fidelidad
-- 🔗 Referencias visuales y enlaces de inspiración
-- 🎯 Resultado estético deseado y guías de estilo
+El sitio fue desarrollado aplicando tecnologías modernas, diseño responsive y funcionalidades dinámicas en JavaScript.
 
 ---
 
-## 🖥️ Contenido del Sitio
+## 🖥️ Estructura del Sitio
 
-- 🏠 **Inicio** (`index.html`): Página principal que da la bienvenida al usuario y presenta nuestra propuesta
-- 🛒 **Tienda** (`tienda.html`): Sección donde se exhiben los productos disponibles, con carrito de compras funcional
-- 🌱 **Comunidad** (`comunidad.html`): Espacio pensado para los usuarios que quieran compartir experiencias, consejos o historias con otras personas amantes de las plantas
-- ❓ **Preguntas Frecuentes** (`preguntas-frecuentes.html`): Sección con respuestas a las consultas más comunes sobre productos, envíos y cuidado de plantas
-- 📬 **Contacto** (`contacto.html`): Formulario funcional para que los visitantes puedan comunicarse directamente con el equipo de Siempre Verde
+El sitio web está compuesto por cinco secciones principales:
+
+- 🏠 **Inicio** (`index.html`):Página principal con banner destacado, productos en preventa, presentación del equipo, comentarios de clientes y consejos breves sobre plantas ("GreenTips").
+- 🛒 **Tienda** (`tienda.html`): Galería de productos con carrito funcional y gestión de stock.
+- 🌱 **Comunidad** (`comunidad.html`): Espacio colaborativo para compartir experiencias. Incluye reglas de convivencia e info sobre próximos talleres.
+- ❓ **Preguntas Frecuentes** (`preguntas-frecuentes.html`): Respuestas a dudas comunes sobre productos, envíos, pagos, garantías y devoluciones, etc.
+- 📬 **Contacto** (`contacto.html`): Datos y formulario de contacto y acceso directo a la sección de preguntas frecuentes.
 
 ---
 
-## ✨ Objetivos del Proyecto
+## 🎨 Diseño y Maquetación
 
-- Aplicar los conocimientos adquiridos durante el curso en un proyecto web real
-- Crear un sitio funcional, atractivo y accesible
-- Fomentar el espíritu emprendedor, el trabajo colaborativo y el diseño centrado en el usuario
-- Implementar JavaScript avanzado con manejo de almacenamiento local
+- Prototipado completo en Figma  
+  🔗 [Ver diseño en Figma](https://www.figma.com/design/tFmDQ4yEiUiiVdW4z2r0tI/Proyect-Ingenias?node-id=0-1&t=QRtGsVc4yzrsolrF-1)
+
+- HTML semántico
+- CSS con Flexbox, Grid, Media Queries
+- Responsive design para dispositivos móviles y escritorio
+
+---
+
+## 🚀 Funcionalidades con JavaScript
+
+- Carrito de compras con operaciones CRUD (agregar, eliminar, modificar)
+- Almacenamiento y lectura del carrito en `localStorage`
+- Validaciones de stock con base de datos simulada (`plantasDB`)
+- Formulario de contacto validado en tiempo real con envío automático(**EmailJS**)
+- Modal con información detallada de cada planta usando la API de **Perenual**
+- Notificaciones dinámicas (éxito, error, advertencia)
+- Cambio de vista en la tienda (grilla / lista)
+- Animaciones y mejoras visuales
+
+---
+
+## 📋 Checklist Técnico
+
+✅ **5 páginas** navegables con HTML semántico  
+✅ CSS con **Flexbox, Grid y Media Queries** (responsive)  
+✅ **Template literals** para generar HTML dinámico
+✅ **Condicionales** (`if`, `switch`) para lógica de stock, validaciones y respuestas
+✅ **Bucles** (`forEach`, `map`, `reduce`) para mostrar productos, carrito y más
+✅ **Arrow functions** en todas las funciones modernas
+✅ **Módulo externo**: `EmailJS` para el formulario de contacto
+✅ **Base de datos simulada en JSON**: `plantasDB` en archivo `.js`
+✅ **Almacenamiento de datos**: `localStorage`
+✅ **API pública externa**: `Perenual API` para mostrar información botánica
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-**Frontend:**
-
-- HTML5, CSS3, JavaScript (ES6+)
-- LocalStorage para persistencia de datos
-- EmailJS para envío de formularios
-
-**Desarrollo:**
-
-- Git & GitHub para versionado
-- GitHub Pages para deployment
-- Chrome DevTools para debugging
-
-**Backend/APIs:**
-
-- Node.js y npm
-- Fundamentos HTTP/REST API
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Herramientas:** Git, GitHub, GitHub Copilot, Chrome DevTools, Figma
+- **Servicios externos:** EmailJS, API de Perenual
+- **Almacenamiento:** `localStorage` en navegador
 
 ---
 
-## 📋 Requisitos Cumplidos (Cuarta Pre-entrega)
+## 📌 Estado del Proyecto
 
-✅ **Guardar en Storage la base de datos completa**: El carrito completo se guarda en localStorage usando JSON.stringify
-
-✅ **Mostrar los datos desde Storage**: Al cargar la página, se recupera y muestra el carrito guardado
-
-✅ **Estructura de datos tipo JSON**: Los productos tienen estructura de objetos con id, nombre, precio, imagen y cantidad
-
-✅ **Funcionalidad de agregar elementos**: Los usuarios pueden agregar productos al carrito con validación
-
-✅ **Validación de datos**: Formulario de contacto con validación completa de campos
-
-✅ **Persistencia**: Los datos se mantienen al actualizar o cerrar el navegador
+✅ Proyecto finalizado y funcional  
+🎓 Presentado como entrega final del curso  
+🌱 Preparado para futuras mejoras y despliegue
 
 ---
 
-## 🚀 Funcionalidades Principales
+## ✨ Agradecimientos
 
-### Carrito de Compras
-
-- Agregar productos desde la tienda
-- Modificar cantidades y eliminar productos
-- Persistencia en localStorage entre sesiones
-
-### Formulario de Contacto
-
-- Validación en tiempo real de campos
-- Envío automático via EmailJS
-- Campos requeridos: nombre, email, asunto, mensaje
-
----
-
-## 🚧 Estado del Proyecto
-
-Actualmente en desarrollo. Se irá actualizando a medida que se completen nuevas funcionalidades y se mejore el diseño.
+Gracias a **Abigail Salas**, nuestra profesora, por su dedicación y guía constante a lo largo del curso.
+Y a **María Elisa Araya**, nuestra tutora, por su acompañamiento cercano y apoyo en cada etapa del proyecto.
