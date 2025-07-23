@@ -1,4 +1,7 @@
-let carritoCompras = []; // Carrito de compras inicializado vacío
+/* Simulación de base de datos JSON en archivo ´plantasDB.js´ */
+
+// Carrito de compras inicializado vacío
+let carritoCompras = [];
 
 //  CONFIGURACIÓN EMAILJS (libreria externa)
 const CONFIGURACION_EMAILJS = {
@@ -7,7 +10,7 @@ const CONFIGURACION_EMAILJS = {
   publicKey: 'E6oF3-Hyj5trqa7rL',
 };
 
-//  INICIALIZACIÓN
+//  INICIALIZACIÓN DOM del documento
 document.addEventListener('DOMContentLoaded', function () {
   console.log('Iniciando aplicación...'); // Mensaje de inicio en consola
   inicializarAplicacion();
@@ -26,14 +29,17 @@ function inicializarAplicacion() {
 // ===== GESTIÓN DE CARRITO EN STORAGE =====
 function cargarCarritoDesdeStorage() {
   try {
+    //try ejecuta código "riesgoso" (puede fallar)
     const carritoGuardado = localStorage.getItem('carritoCompras');
     if (carritoGuardado) {
+      /* convierte el carrito guardado de JSON (string) a objeto JavaScript */
       carritoCompras = JSON.parse(carritoGuardado);
       console.log('Carrito cargado desde storage:', carritoCompras);
     } else {
       carritoCompras = [];
       console.log('No hay carrito guardado, iniciando vacío');
     }
+    // catch captura errores que ocurren en el bloque try
   } catch (error) {
     console.error('Error al cargar carrito desde storage:', error);
     carritoCompras = []; // Reiniciar carrito en caso de error
@@ -570,13 +576,13 @@ async function enviarEmailContacto(datos) {
   return respuesta;
 }
 
-// ===== CONFIGURAR EVENT LISTENERS =====
+//  CONFIGURAR EVENT LISTENERS
 function configurarEventListeners() {
   // Configurar botones de añadir al carrito
   document.querySelectorAll('.btn-añadir-carrito').forEach((boton) => {
     boton.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation(); // Evitar que el evento se propague al contenedor del producto
+      e.preventDefault(); // Evitar el comportamiento por defecto del enlace
+      e.stopPropagation(); // Impide que ese clic “suba” al elemento padre y dispare otro evento.
       añadirProductoAlCarrito(this); // Llamar a la función para añadir el producto al carrito
     });
   });
@@ -612,9 +618,10 @@ function configurarEventListeners() {
   });
 }
 
-// ===== FUNCIONES AUXILIARES =====
-const formatearPrecio = (precio) => precio.toLocaleString('es-CO');
+// FUNCIONES AUXILIARES
+const formatearPrecio = (precio) => precio.toLocaleString('es-CO'); //.toLocaleString('es-CO'): convierte ese número al formato colombiano (es-CO)
 
+// Mostrar estado de carga en el botón de envío del formulario
 function mostrarEstadoCarga(mostrar) {
   const btnSubmit = document.querySelector('.btn-contacto');
   if (!btnSubmit) return;
@@ -629,12 +636,13 @@ function mostrarEstadoCarga(mostrar) {
 }
 
 function mostrarNotificacion(mensaje, tipo = 'success') {
+  // define si es un mensaje de éxito ('success')
   const notificacion = document.createElement('div');
   notificacion.className = `notificacion ${tipo}`;
   notificacion.innerHTML = `
     <div class="notificacion-contenido">
       <i class="fas ${
-        tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'
+        tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle' // ✅ (fa-check-circle), ⚠️ (fa-exclamation-triangle)
       }"></i>
       <span>${mensaje}</span>
     </div>
@@ -655,11 +663,11 @@ function mostrarNotificacion(mensaje, tipo = 'success') {
     animation: slideInRight 0.3s ease-out;
   `;
 
-  document.body.appendChild(notificacion);
+  document.body.appendChild(notificacion); // Agrega la notificación al cuerpo de la página
 
   setTimeout(() => {
-    notificacion.style.animation = 'slideOutRight 0.3s ease-out';
-    setTimeout(() => notificacion.remove(), 300);
+    notificacion.style.animation = 'slideOutRight 0.3s ease-out'; // animación de salida y luego la elimina
+    setTimeout(() => notificacion.remove(), 300); // elimina un elemento del DOM
   }, 4000);
 }
 
@@ -714,18 +722,19 @@ function limpiarErroresFormulario() {
   });
 }
 
-// ===== FUNCIONES GLOBALES PARA BOTONES =====
+//  FUNCIONES GLOBALES PARA BOTONES (window.funcion : hacer funciones accesibles globalmente)
 window.cambiarCantidadProducto = cambiarCantidadProducto;
 window.eliminarProductoDelCarrito = eliminarProductoDelCarrito;
 
-// ===== ESTILOS CSS ADICIONALES =====
+//  ESTILOS CSS ADICIONALES
 const estilosAdicionales = document.createElement('style');
 estilosAdicionales.textContent = `
+  /* elemento entra desde la derecha */
   @keyframes slideInRight {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
   }
-  
+  /* elemento sale hacia la derecha */
   @keyframes slideOutRight {
     from { transform: translateX(0); opacity: 1; }
     to { transform: translateX(100%); opacity: 0; }
@@ -774,7 +783,7 @@ estilosAdicionales.textContent = `
 `;
 document.head.appendChild(estilosAdicionales);
 
-// ===== DEBUG =====
+//  DEBUG para ver el estado del carrito y LocalStorage en la consola
 function debugCarrito() {
   console.log('Estado actual del carrito:', carritoCompras);
   console.log('LocalStorage:', localStorage.getItem('carritoCompras'));
@@ -785,7 +794,7 @@ window.debugCarrito = debugCarrito;
 /* ------------------------------  Integracion de API Perenual ------------------------------ */
 
 (function () {
-  // Referencias DOM
+  // Referencias DOM de elementos del modal en html
   const modal = document.getElementById('plantModal');
   const modalTitle = document.getElementById('modalTitle');
   const modalBody = document.getElementById('modalBody');
@@ -960,7 +969,7 @@ window.debugCarrito = debugCarrito;
 
     let translated = text.toLowerCase();
     Object.entries(translations).forEach(([eng, esp]) => {
-      translated = translated.replace(new RegExp(eng, 'gi'), esp);
+      translated = translated.replace(new RegExp(eng, 'gi'), esp); // .replace() con RegExp para encontrar y traducir palabras automáticamente.
     });
 
     return translated.charAt(0).toUpperCase() + translated.slice(1);
@@ -968,31 +977,36 @@ window.debugCarrito = debugCarrito;
 
   // Función para buscar en la API de Perenual
   async function searchPlantInPerenual(plantName, isRetry = false) {
+    // isRetry = false (búsqueda con nombre original), isRetry = true (búsqueda con nombre de respaldo)
     const plantInfo = plantNameMapping[plantName];
     if (!plantInfo) {
       throw new Error(`No se encontró mapeo para: ${plantName}`);
     }
-
+    // ternario / si es true, usa el nombre de búsqueda de respaldo, si es false, usa el nombre original
     const searchTerm = isRetry ? plantInfo.fallbackSearch : plantInfo.search;
+    // template literal para construir la URL de búsqueda para la API de Perenual
     const url = `${PERENUAL_BASE_URL}?key=${PERENUAL_API_KEY}&q=${encodeURIComponent(
       searchTerm
-    )}&indoor=1`;
+    )}`; /* &indoor=1 restringe los resultados a plantas de interior */
 
     console.log(`Buscando: ${searchTerm} para ${plantName}`);
 
+    // hace peticion http a la API y esperá la respuesta antes de seguir.
     const response = await fetch(url);
 
+    // si la respuesta es 429 (límite de API excedido) o cualquier otro error, lanza un error
     if (!response.ok) {
       if (response.status === 429) {
         throw new Error('Límite de API excedido. Intenta más tarde.');
       }
       throw new Error(`Error de API: ${response.status}`);
     }
-
+    // convierte la respuesta a JSON y almacena en la variable data
     const data = await response.json();
-
+    // Si no hay datos o la lista está vacía, intenta con el nombre de respaldo
     if (!data.data || data.data.length === 0) {
       if (!isRetry && plantInfo.fallbackSearch) {
+        // Si no se encontraron resultados y no es un reintento, intenta con el nombre de respaldo
         console.log(
           `No se encontró con "${searchTerm}", intentando con "${plantInfo.fallbackSearch}"`
         );
@@ -1001,7 +1015,7 @@ window.debugCarrito = debugCarrito;
       throw new Error('No se encontraron resultados en la API');
     }
 
-    return data.data[0]; // Retorna el primer resultado
+    return data.data[0]; // Retorna el primer resultado (API puede devolver múltiples resultados)
   }
 
   // Función para mostrar la información de la planta desde la API
@@ -1096,6 +1110,7 @@ window.debugCarrito = debugCarrito;
 
       if (plantData.sunlight) {
         plantData.sunlight.slice(0, 3).forEach((sun) => {
+          // slice(0, 3) limita a 3 etiquetas
           infoHTML += `<span class="care-tag">☀️ ${translateToSpanish(
             sun
           )}</span>`;
@@ -1120,7 +1135,7 @@ window.debugCarrito = debugCarrito;
     }
 
     infoHTML += '</div>';
-    modalBody.innerHTML = infoHTML;
+    modalBody.innerHTML = infoHTML; // Actualiza el contenido del modal con la información obtenida
   }
 
   // Función para mostrar información de respaldo en caso de error en API
@@ -1229,7 +1244,7 @@ window.debugCarrito = debugCarrito;
 
   // Función principal para manejar el clic en las imágenes
   async function handleImageClick(event) {
-    const img = event.target;
+    const img = event.target; // Obtener la imagen que se hizo clic
 
     // Verificar que es una imagen de producto
     if (!img.matches('.producto-imagen img')) {
@@ -1238,19 +1253,19 @@ window.debugCarrito = debugCarrito;
 
     event.preventDefault();
 
-    const productItem = img.closest('.producto-item');
+    const productItem = img.closest('.producto-item'); // Buscar el contenedor del producto
     if (!productItem) {
       console.error('No se encontró el contenedor del producto');
       return;
     }
 
-    const h3 = productItem.querySelector('.producto-info h3');
+    const h3 = productItem.querySelector('.producto-info h3'); // Buscar el nombre de la planta dentro del contenedor del producto
     if (!h3) {
       console.error('No se encontró el nombre de la planta');
       return;
     }
-
-    const plantName = h3.textContent.trim();
+    // trim: elimina espacios en blanco al inicio y al final del texto
+    const plantName = h3.textContent.trim(); // Obtener el nombre de la planta del elemento h3
     console.log('Buscando información para:', plantName);
 
     // Configurar y mostrar el modal
@@ -1259,6 +1274,7 @@ window.debugCarrito = debugCarrito;
       '<div class="loading">Consultando base de datos de plantas...</div>';
     modal.style.display = 'block';
 
+    // intentar buscar la planta en la API sino no se encuentra, mostrar información de respaldo
     try {
       // Intentar buscar en la API
       const plantData = await searchPlantInPerenual(plantName);
@@ -1270,10 +1286,10 @@ window.debugCarrito = debugCarrito;
     }
   }
 
-  // Event listeners
+  // Event listener de la función handleImageClick
   document.addEventListener('click', handleImageClick);
 
-  // Cerrar modal
+  // Cerrar modal con x
   if (closeModal) {
     closeModal.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -1287,7 +1303,7 @@ window.debugCarrito = debugCarrito;
     }
   });
 
-  // Cerrar modal con Escape
+  // Cerrar modal con tecla Escape
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && modal.style.display === 'block') {
       modal.style.display = 'none';
@@ -1300,5 +1316,4 @@ window.debugCarrito = debugCarrito;
   console.log(
     'Hacer clic en cualquier imagen de planta para ver su información'
   );
-  
 })();
