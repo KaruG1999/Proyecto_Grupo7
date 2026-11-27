@@ -1,3 +1,6 @@
 .vscode/
 .prettierrc
 
+.env
+.vercel/
+node_modules/

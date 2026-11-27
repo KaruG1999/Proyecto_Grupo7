@@ -65,10 +65,26 @@ El sitio web está compuesto por cinco secciones principales:
 
 - **Frontend:** HTML5, CSS3, JavaScript (ES6+)
 - **Herramientas:** Git, GitHub, Chrome DevTools, Figma
-- **Servicios externos:** EmailJS, API de Perenual
+- **Animaciones:** GSAP + ScrollTrigger
+- **Servicios externos:** EmailJS, API de Perenual (a través de una función serverless)
 - **Almacenamiento:** `localStorage` en navegador
 - **Asistentes IA:** GitHub Copilot, Claude AI 
 
+
+## ⚙️ Cómo correrlo localmente
+
+La información botánica se pide a la API de Perenual a través de una función serverless (`api/perenual.js`), así la API key nunca llega al navegador.
+
+1. Copiá `.env.example` como `.env` y completá tu key de [Perenual](https://perenual.com/docs/api).
+2. Levantá el servidor de desarrollo (requiere Node 20 o superior):
+
+```bash
+node --env-file=.env dev-server.js
+```
+
+3. Abrí `http://localhost:5500`.
+
+**En Vercel:** cargá `PERENUAL_API_KEY` en *Settings → Environment Variables*. La carpeta `api/` se despliega sola como función serverless.
 
 ## 🧷​ Estado del Proyecto
 

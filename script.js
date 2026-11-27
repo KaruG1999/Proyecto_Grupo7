@@ -10,9 +10,11 @@ const CONFIGURACION_EMAILJS = {
   publicKey: 'E6oF3-Hyj5trqa7rL',
 };
 
+// Avisa a ui.js que cambió el contenido (para recalcular las animaciones de scroll)
+const avisarCambioDeContenido = () => document.dispatchEvent(new Event('contenido-actualizado'));
+
 //  INICIALIZACIÓN DOM del documento
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('Iniciando aplicación...'); // Mensaje de inicio en consola
   inicializarAplicacion();
 });
 
@@ -23,7 +25,6 @@ function inicializarAplicacion() {
   inicializarFormularioContacto();
   inicializarCarritoCompras();
   configurarEventListeners();
-  console.log('Aplicación inicializada correctamente'); // Mensaje de éxito en consola
 }
 
 // ===== GESTIÓN DE CARRITO EN STORAGE =====
@@ -34,10 +35,8 @@ function cargarCarritoDesdeStorage() {
     if (carritoGuardado) {
       /* convierte el carrito guardado de JSON (string) a objeto JavaScript */
       carritoCompras = JSON.parse(carritoGuardado);
-      console.log('Carrito cargado desde storage:', carritoCompras);
     } else {
       carritoCompras = [];
-      console.log('No hay carrito guardado, iniciando vacío');
     }
     // catch captura errores que ocurren en el bloque try
   } catch (error) {
@@ -49,7 +48,6 @@ function cargarCarritoDesdeStorage() {
 function guardarCarritoEnStorage() {
   try {
     localStorage.setItem('carritoCompras', JSON.stringify(carritoCompras)); // Guardar el carrito en formato JSON
-    console.log('Carrito guardado en storage:', carritoCompras);
   } catch (error) {
     // catch para manejar errores al guardar
     console.error('Error al guardar carrito en storage:', error);
@@ -128,7 +126,6 @@ function reducirStock(nombrePlanta, cantidad) {
   const planta = buscarPlantaEnDB(nombrePlanta);
   if (planta && planta.cantidad >= cantidad) {
     planta.cantidad -= cantidad;
-    console.log(`Stock reducido: ${nombrePlanta} - Quedan ${planta.cantidad}`);
     return true;
   }
   return false;
@@ -139,9 +136,6 @@ function restaurarStock(nombrePlanta, cantidad) {
   const planta = buscarPlantaEnDB(nombrePlanta);
   if (planta) {
     planta.cantidad += cantidad;
-    console.log(
-      `Stock restaurado: ${nombrePlanta} - Total: ${planta.cantidad}`
-    );
     return true;
   }
   return false;
@@ -270,7 +264,6 @@ function inicializarStock() {
     // Restaurar stock si hay productos en carrito guardado
     reducirStock(item.nombre, item.cantidad);
   });
-  console.log('Stock inicializado correctamente');
 }
 
 function abrirCarrito() {
@@ -329,46 +322,45 @@ function generarHTMLCarrito() {
       <div class="item-imagen">
         <img src="${item.imagen}" alt="${
         item.nombre
-      }" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+      }">
       </div>
       <div class="item-info">
-        <div class="item-nombre" style="font-weight: 500; font-size: 0.9rem; margin-bottom: 5px;">${
+        <div class="item-nombre">${
           item.nombre
         }</div>
-        <div class="item-precio" style="color: #27ae60; font-weight: 600;">$${formatearPrecio(
+        <div class="item-precio">$${formatearPrecio(
           item.precio
         )}</div>
-        <div class="item-controles" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+        <div class="item-controles">
           <button class="btn-cantidad" onclick="cambiarCantidadProducto(${
             item.id
           }, ${
         item.cantidad - 1
-      })" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-            <i class="fas fa-minus" style="font-size: 0.8rem;"></i>
+      })" aria-label="Quitar una unidad">
+            <i class="fas fa-minus" aria-hidden="true"></i>
           </button>
-          <span class="item-cantidad" style="font-weight: 600; min-width: 20px; text-align: center;">${
+          <span class="item-cantidad">${
             item.cantidad
           }</span>
           <button class="btn-cantidad" onclick="cambiarCantidadProducto(${
             item.id
           }, ${
         item.cantidad + 1
-      })" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-            <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+      })" aria-label="Agregar una unidad">
+            <i class="fas fa-plus" aria-hidden="true"></i>
           </button>
           <button class="btn-eliminar" onclick="eliminarProductoDelCarrito(${
             item.id
-          })" title="Eliminar producto" style="background: #dc3545; color: white; border: none; border-radius: 4px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 10px;">
-            <i class="fas fa-trash" style="font-size: 0.8rem;"></i>
+          })" aria-label="Eliminar producto">
+            <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>
-        <div class="item-subtotal" style="font-size: 0.85rem; color: #666; margin-top: 8px;">
+        <div class="item-subtotal">
           Subtotal: $${formatearPrecio(item.precio * item.cantidad)}
         </div>
       </div>
     </div>
-    <hr style="margin: 15px 0; border: none; border-top: 1px solid #eee;">
-  `
+      `
     )
     .join('');
 
@@ -410,14 +402,12 @@ function actualizarResumenCarrito() {
 function inicializarFormularioContacto() {
   const formularioContacto = document.getElementById('formulario-contacto');
   if (!formularioContacto) {
-    console.log('Formulario de contacto no encontrado');
     return;
   }
 
   // Inicializar EmailJS
   if (typeof emailjs !== 'undefined') {
     emailjs.init(CONFIGURACION_EMAILJS.publicKey);
-    console.log('EmailJS inicializado correctamente');
   } else {
     console.error('EmailJS no está cargado');
   }
@@ -428,7 +418,6 @@ function inicializarFormularioContacto() {
 // función asíncrona que maneja la validación, envío y notificaciones
 async function procesarFormularioContacto(e) {
   e.preventDefault();
-  console.log('Procesando formulario de contacto...');
 
   const datosFormulario = new FormData(e.target); // e.target hace referencia al formulario que disparó el evento submit
   const datosContacto = {
@@ -442,7 +431,6 @@ async function procesarFormularioContacto(e) {
     fechaEnvio: new Date().toLocaleString('es-AR'), // Fecha y hora actual en formato local
   };
 
-  console.log('Datos del formulario:', datosContacto); // Mostrar los datos del formulario en la consola para depuración
 
   if (!validarDatosContacto(datosContacto)) {
     mostrarNotificacion(
@@ -462,7 +450,6 @@ async function procesarFormularioContacto(e) {
       '¡Mensaje enviado correctamente! Te responderemos pronto.',
       'success'
     );
-    console.log('Email enviado exitosamente');
   } catch (error) {
     console.error('Error al enviar:', error);
     mostrarNotificacion(
@@ -594,11 +581,11 @@ function configurarEventListeners() {
     }
   });
 
-  // Configurar filtros y ordenamiento
-  /* const ordenarSelect = document.querySelector('select[name="ordenar"]');
+  // Ordenamiento de productos en la tienda
+  const ordenarSelect = document.querySelector('select[name="ordenar"]');
   if (ordenarSelect) {
-    ordenarSelect.addEventListener('change', ordenarProductos);
-  } */
+    ordenarSelect.addEventListener('change', (e) => ordenarProductos(e.target.value));
+  }
 
   // Configurar vista (grid/list)
   document.querySelectorAll('.vista-btn').forEach((btn) => {
@@ -609,17 +596,67 @@ function configurarEventListeners() {
       this.classList.add('active');
 
       const vista = this.dataset.view;
-      const productosGrid = document.querySelector('.productos-grid');
+      // Busca el contenedor esté en vista grilla o lista
+      const productosGrid = document.querySelector('.productos-grid, .productos-list');
       if (productosGrid) {
         productosGrid.className =
           vista === 'list' ? 'productos-list' : 'productos-grid';
       }
+      avisarCambioDeContenido();
     });
   });
 }
 
+// ORDENAR PRODUCTOS DE LA TIENDA (precio o nombre)
+// Guarda el orden original la primera vez para poder volver a "Relevancia"
+let ordenOriginalProductos = null;
+
+const obtenerPrecioProducto = (item) => {
+  const texto = item.querySelector('.producto-precio')?.textContent || '';
+  const precios = texto.match(/\$\s?[\d.]+/g) || ['0'];
+  // Si hay precio tachado y precio actual, el actual es el último
+  return Number(precios[precios.length - 1].replace(/[^\d]/g, ''));
+};
+
+const obtenerNombreProducto = (item) =>
+  item.querySelector('.producto-info h3')?.textContent.trim() || '';
+
+function ordenarProductos(criterio) {
+  const contenedor = document.querySelector('.productos-grid, .productos-list');
+  if (!contenedor) return;
+
+  const items = [...contenedor.querySelectorAll('.producto-item')];
+  if (!ordenOriginalProductos) ordenOriginalProductos = items;
+
+  const porNombre = (a, b) =>
+    obtenerNombreProducto(a).localeCompare(obtenerNombreProducto(b), 'es');
+
+  let ordenados;
+  switch (criterio) {
+    case 'precio_asc':
+      ordenados = [...items].sort((a, b) => obtenerPrecioProducto(a) - obtenerPrecioProducto(b));
+      break;
+    case 'precio_desc':
+      ordenados = [...items].sort((a, b) => obtenerPrecioProducto(b) - obtenerPrecioProducto(a));
+      break;
+    case 'nombre_asc':
+      ordenados = [...items].sort(porNombre);
+      break;
+    case 'nombre_desc':
+      ordenados = [...items].sort((a, b) => porNombre(b, a));
+      break;
+    case 'nuevos':
+      ordenados = [...ordenOriginalProductos].reverse();
+      break;
+    default:
+      ordenados = ordenOriginalProductos;
+  }
+  ordenados.forEach((item) => contenedor.appendChild(item));
+  avisarCambioDeContenido();
+}
+
 // FUNCIONES AUXILIARES
-const formatearPrecio = (precio) => precio.toLocaleString('es-CO'); //.toLocaleString('es-CO'): convierte ese número al formato colombiano (es-CO)
+const formatearPrecio = (precio) => precio.toLocaleString('es-AR'); // formato argentino: 45.000
 
 // Mostrar estado de carga en el botón de envío del formulario
 function mostrarEstadoCarga(mostrar) {
@@ -648,26 +685,13 @@ function mostrarNotificacion(mensaje, tipo = 'success') {
     </div>
   `;
 
-  notificacion.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${tipo === 'success' ? '#27ae60' : '#e74c3c'};
-    color: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    z-index: 1000;
-    font-size: 0.9rem;
-    max-width: 350px;
-    animation: slideInRight 0.3s ease-out;
-  `;
 
+  notificacion.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
   document.body.appendChild(notificacion); // Agrega la notificación al cuerpo de la página
 
   setTimeout(() => {
-    notificacion.style.animation = 'slideOutRight 0.3s ease-out'; // animación de salida y luego la elimina
-    setTimeout(() => notificacion.remove(), 300); // elimina un elemento del DOM
+    notificacion.classList.add('saliendo'); // animación de salida y luego la elimina
+    setTimeout(() => notificacion.remove(), 200); // elimina un elemento del DOM
   }, 4000);
 }
 
@@ -685,16 +709,9 @@ function mostrarErrorCampo(nombreCampo, mensaje) {
   }
 
   errorElement.textContent = mensaje;
-  errorElement.style.cssText = `
-    display: block;
-    margin-top: 5px;
-    font-size: 0.875rem;
-    color: #e74c3c;
-    font-weight: 500;
-  `;
 
-  campo.style.borderColor = '#e74c3c';
-  campo.style.backgroundColor = '#fef2f2';
+  campo.style.borderColor = '#9b3b33';
+  campo.style.backgroundColor = '#fbf3f1';
 }
 
 function limpiarErrorCampo(nombreCampo) {
@@ -726,70 +743,6 @@ function limpiarErroresFormulario() {
 window.cambiarCantidadProducto = cambiarCantidadProducto;
 window.eliminarProductoDelCarrito = eliminarProductoDelCarrito;
 
-//  ESTILOS CSS ADICIONALES
-const estilosAdicionales = document.createElement('style');
-estilosAdicionales.textContent = `
-  /* elemento entra desde la derecha */
-  @keyframes slideInRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-  /* elemento sale hacia la derecha */
-  @keyframes slideOutRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-  }
-  
-  .notificacion {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-  
-  .notificacion-contenido {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .carrito-item {
-    display: flex;
-    gap: 12px;
-    padding: 15px 0;
-    align-items: flex-start;
-  }
-  
-  .btn-cantidad:hover, .btn-eliminar:hover {
-    opacity: 0.8;
-    transform: translateY(-1px);
-  }
-  
-  .productos-list .producto-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 15px;
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-  }
-  
-  .productos-list .producto-imagen {
-    width: 120px;
-    height: 120px;
-    flex-shrink: 0;
-  }
-  
-  .productos-list .producto-info {
-    flex: 1;
-  }
-`;
-document.head.appendChild(estilosAdicionales);
-
-//  DEBUG para ver el estado del carrito y LocalStorage en la consola
-function debugCarrito() {
-  console.log('Estado actual del carrito:', carritoCompras);
-  console.log('LocalStorage:', localStorage.getItem('carritoCompras'));
-}
-
-window.debugCarrito = debugCarrito;
 
 /* ------------------------------  Integracion de API Perenual ------------------------------ */
 
@@ -800,9 +753,9 @@ window.debugCarrito = debugCarrito;
   const modalBody = document.getElementById('modalBody');
   const closeModal = document.getElementById('closeModal');
 
-  // clave API de Perenual
-  const PERENUAL_API_KEY = 'sk-nSWN687047006832811382';
-  const PERENUAL_BASE_URL = 'https://perenual.com/api/species-list';
+  // Las consultas pasan por /api/perenual (función serverless en api/perenual.js),
+  // que agrega la API key del lado del servidor: la key nunca llega al navegador.
+  const PERENUAL_ENDPOINT = '/api/perenual';
 
   // Mapeo de nombres de plantas del HTML a nombres buscables en la API
   const plantNameMapping = {
@@ -985,11 +938,8 @@ window.debugCarrito = debugCarrito;
     // ternario / si es true, usa el nombre de búsqueda de respaldo, si es false, usa el nombre original
     const searchTerm = isRetry ? plantInfo.fallbackSearch : plantInfo.search;
     // template literal para construir la URL de búsqueda para la API de Perenual
-    const url = `${PERENUAL_BASE_URL}?key=${PERENUAL_API_KEY}&q=${encodeURIComponent(
-      searchTerm
-    )}`; /* &indoor=1 restringe los resultados a plantas de interior */
+    const url = `${PERENUAL_ENDPOINT}?q=${encodeURIComponent(searchTerm)}`;
 
-    console.log(`Buscando: ${searchTerm} para ${plantName}`);
 
     // hace peticion http a la API y esperá la respuesta antes de seguir.
     const response = await fetch(url);
@@ -1007,9 +957,6 @@ window.debugCarrito = debugCarrito;
     if (!data.data || data.data.length === 0) {
       if (!isRetry && plantInfo.fallbackSearch) {
         // Si no se encontraron resultados y no es un reintento, intenta con el nombre de respaldo
-        console.log(
-          `No se encontró con "${searchTerm}", intentando con "${plantInfo.fallbackSearch}"`
-        );
         return await searchPlantInPerenual(plantName, true);
       }
       throw new Error('No se encontraron resultados en la API');
@@ -1266,7 +1213,6 @@ window.debugCarrito = debugCarrito;
     }
     // trim: elimina espacios en blanco al inicio y al final del texto
     const plantName = h3.textContent.trim(); // Obtener el nombre de la planta del elemento h3
-    console.log('Buscando información para:', plantName);
 
     // Configurar y mostrar el modal
     modalTitle.textContent = `${plantName} - Información de cuidados`;
@@ -1279,7 +1225,6 @@ window.debugCarrito = debugCarrito;
       // Intentar buscar en la API
       const plantData = await searchPlantInPerenual(plantName);
       displayPlantInfoFromAPI(plantData, plantName);
-      console.log('Información obtenida de la API');
     } catch (error) {
       console.error('Error al buscar en la API:', error.message);
       displayError(plantName, error.message);
@@ -1310,10 +1255,261 @@ window.debugCarrito = debugCarrito;
     }
   });
 
-  // Verificación inicial en consola (me ayuda a ver si la API está funcionando)
-  console.log('API Perenual integrada correctamente');
-  console.log('Usando clave API propia');
-  console.log(
-    'Hacer clic en cualquier imagen de planta para ver su información'
+})();
+
+
+/* ==========================================================================
+   Tienda: filtros por categoría
+   ========================================================================== */
+(function () {
+  const chips = document.querySelectorAll('.categoria-tienda[data-filtro]');
+  if (!chips.length) return;
+
+  const vacio = document.getElementById('tienda-sin-resultados');
+  const grupos = {
+    interior: ['planta de interior', 'cactus'],
+    exterior: ['planta de exterior', 'aromática'],
+    herramientas: ['herramientas'],
+    sustratos: ['sustratos', 'fertilizantes'],
+  };
+
+  const coincide = (item, filtro) => {
+    if (filtro === 'todo') return true;
+    if (filtro === 'ofertas') return Boolean(item.querySelector('.etiqueta-oferta, .precio-original'));
+    const categoria = item.querySelector('.producto-categoria')?.textContent.trim().toLowerCase() || '';
+    return (grupos[filtro] || []).includes(categoria);
+  };
+
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      let visibles = 0;
+      document.querySelectorAll('.producto-item').forEach((item) => {
+        const mostrar = coincide(item, chip.dataset.filtro);
+        item.hidden = !mostrar;
+        if (mostrar) visibles++;
+      });
+      if (vacio) vacio.hidden = visibles > 0;
+      avisarCambioDeContenido();
+    })
   );
+})();
+
+/* ==========================================================================
+   Comunidad: publicar, buscar, filtrar, ordenar y "me gusta"
+   ========================================================================== */
+(function () {
+  const lista = document.querySelector('.publicaciones-comunidad .container');
+  if (!lista) return;
+
+  const CLAVE_STORAGE = 'publicacionesComunidad';
+  const NOMBRES_CATEGORIA = {
+    cuidados: 'Cuidados básicos',
+    enfermedades: 'Enfermedades y plagas',
+    experiencias: 'Experiencias',
+    propagacion: 'Propagación',
+    decoracion: 'Decoración con plantas',
+  };
+
+  // Datos que se leen de cada tarjeta (sirven para buscar, filtrar y ordenar)
+  const categoriaDe = (card) =>
+    [...(card.querySelector('.categoria-badge')?.classList || [])].find((c) => NOMBRES_CATEGORIA[c]) || '';
+  const respuestasDe = (card) => parseInt(card.querySelector('.publicacion-stats span')?.textContent, 10) || 0;
+  const likesDe = (card) => Number(card.querySelector('.btn-like')?.dataset.likes) || 0;
+
+  // Mensaje para cuando ningún post coincide
+  const vacio = document.createElement('p');
+  vacio.className = 'sin-resultados';
+  vacio.hidden = true;
+  vacio.textContent = 'No hay publicaciones que coincidan con tu búsqueda.';
+  lista.appendChild(vacio);
+
+  /* --- "Me gusta" (delegado: funciona también en posts nuevos) --- */
+  lista.addEventListener('click', (e) => {
+    const boton = e.target.closest('.btn-like');
+    if (!boton) return;
+    const activo = boton.getAttribute('aria-pressed') !== 'true';
+    const total = Number(boton.dataset.likes) + (activo ? 1 : -1);
+    boton.dataset.likes = total;
+    boton.setAttribute('aria-pressed', String(activo));
+    boton.classList.toggle('liked', activo);
+    boton.querySelector('i').className = `${activo ? 'fas' : 'far'} fa-heart`;
+    boton.querySelector('span').textContent = total;
+  });
+
+  /* --- Crear la tarjeta de un post con texto seguro (sin innerHTML) --- */
+  function crearTarjeta({ titulo, contenido, categoria, imagen, fecha }) {
+    const el = (tag, clase, texto) => {
+      const nodo = document.createElement(tag);
+      if (clase) nodo.className = clase;
+      if (texto !== undefined) nodo.textContent = texto;
+      return nodo;
+    };
+
+    const card = el('div', 'publicacion-card');
+    const header = el('div', 'publicacion-header');
+    const usuario = el('div', 'usuario-info');
+    usuario.append(el('span', 'avatar-inicial', 'V'));
+    const detalles = el('div', 'usuario-detalles');
+    detalles.append(el('h4', '', 'Vos'), el('span', 'fecha-publicacion', fecha));
+    usuario.append(detalles);
+    header.append(usuario);
+    if (categoria) header.append(el('div', `categoria-badge ${categoria}`, NOMBRES_CATEGORIA[categoria]));
+
+    const cuerpo = el('div', 'publicacion-contenido');
+    cuerpo.append(el('h3', '', titulo), el('p', '', contenido));
+    if (imagen) {
+      const marco = el('div', 'publicacion-imagen');
+      const img = el('img');
+      img.src = imagen;
+      img.alt = titulo;
+      marco.append(img);
+      cuerpo.append(marco);
+    }
+
+    const stats = el('div', 'publicacion-stats');
+    const respuestas = el('span');
+    respuestas.innerHTML = '<i class="far fa-comment" aria-hidden="true"></i>';
+    respuestas.append(' 0 respuestas');
+    const like = el('button', 'btn-like');
+    like.type = 'button';
+    like.dataset.likes = '0';
+    like.setAttribute('aria-pressed', 'false');
+    like.innerHTML = '<i class="far fa-heart" aria-hidden="true"></i> <span>0</span> me gusta';
+    stats.append(respuestas, like);
+    cuerpo.append(stats);
+
+    card.append(header, cuerpo);
+    return card;
+  }
+
+  /* --- Posts guardados en este navegador --- */
+  const guardados = JSON.parse(localStorage.getItem(CLAVE_STORAGE) || '[]');
+  guardados.forEach((post) => lista.prepend(crearTarjeta(post)));
+
+  // Orden "más recientes": el del HTML, con lo publicado acá arriba de todo
+  const ordenBase = [...lista.querySelectorAll('.publicacion-card')];
+
+  /* --- Publicar --- */
+  const titulo = document.querySelector('.post-title');
+  const contenido = document.querySelector('.post-content');
+  const categoria = document.querySelector('select[name="categoria"]');
+  const foto = document.getElementById('post-photo');
+  const etiquetaFoto = document.querySelector('label[for="post-photo"]');
+  let imagenSeleccionada = '';
+
+  foto?.addEventListener('change', () => {
+    const archivo = foto.files[0];
+    if (!archivo) return;
+    // Imágenes grandes no entran en localStorage: se reduce antes de guardar
+    const lector = new FileReader();
+    lector.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const escala = Math.min(1, 900 / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * escala;
+        canvas.height = img.height * escala;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        imagenSeleccionada = canvas.toDataURL('image/jpeg', 0.8);
+        etiquetaFoto.lastChild.textContent = ` ${archivo.name}`;
+      };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(archivo);
+  });
+
+  document.querySelector('.publicar-btn')?.addEventListener('click', () => {
+    if (!titulo.value.trim() || !contenido.value.trim()) {
+      mostrarNotificacion('Completá el título y el mensaje para publicar', 'error');
+      (titulo.value.trim() ? contenido : titulo).focus();
+      return;
+    }
+
+    const post = {
+      titulo: titulo.value.trim(),
+      contenido: contenido.value.trim(),
+      categoria: categoria.value,
+      imagen: imagenSeleccionada,
+      fecha: 'Recién publicado',
+    };
+
+    const card = crearTarjeta(post);
+    lista.prepend(card);
+    ordenBase.unshift(card);
+    avisarCambioDeContenido();
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    try {
+      localStorage.setItem(CLAVE_STORAGE, JSON.stringify([...guardados, post]));
+      guardados.push(post);
+    } catch {
+      mostrarNotificacion('Publicado. La foto es muy pesada para guardarla en este navegador.', 'error');
+    }
+
+    titulo.value = '';
+    contenido.value = '';
+    categoria.value = '';
+    foto.value = '';
+    imagenSeleccionada = '';
+    etiquetaFoto.lastChild.textContent = ' Agregar foto';
+    mostrarNotificacion('¡Tu publicación ya está en la comunidad!');
+  });
+
+  /* --- Buscar, filtrar y ordenar --- */
+  const buscador = document.getElementById('buscar-comunidad');
+  const filtroCategoria = document.querySelector('select[name="filtrar-categoria"]');
+  const orden = document.querySelector('select[name="filtrar-por"]');
+
+  function aplicarFiltros() {
+    const texto = buscador.value.trim().toLowerCase();
+    const cat = filtroCategoria.value;
+    const modo = orden.value;
+    const cards = [...lista.querySelectorAll('.publicacion-card')];
+
+    let visibles = 0;
+    cards.forEach((card) => {
+      const respuestas = respuestasDe(card);
+      const coincide =
+        (!texto || card.textContent.toLowerCase().includes(texto)) &&
+        (!cat || categoriaDe(card) === cat) &&
+        (modo !== 'respondidas' || respuestas > 0) &&
+        (modo !== 'sin-responder' || respuestas === 0);
+      card.hidden = !coincide;
+      if (coincide) visibles++;
+    });
+
+    const ordenados = modo === 'populares' ? [...cards].sort((a, b) => likesDe(b) - likesDe(a)) : ordenBase;
+    ordenados.forEach((card) => lista.insertBefore(card, vacio));
+    vacio.hidden = visibles > 0;
+    avisarCambioDeContenido();
+  }
+
+  buscador?.addEventListener('input', aplicarFiltros);
+  filtroCategoria?.addEventListener('change', aplicarFiltros);
+  orden?.addEventListener('change', aplicarFiltros);
+})();
+
+/* ==========================================================================
+   Preguntas frecuentes: buscador
+   ========================================================================== */
+(function () {
+  const buscador = document.getElementById('faq-search');
+  if (!buscador) return;
+
+  const items = document.querySelectorAll('.faq-grid .faq-item');
+  const vacio = document.getElementById('faq-sin-resultados');
+
+  buscador.addEventListener('input', () => {
+    const texto = buscador.value.trim().toLowerCase();
+    let visibles = 0;
+    items.forEach((item) => {
+      const coincide = !texto || item.textContent.toLowerCase().includes(texto);
+      item.hidden = !coincide;
+      // Abre las respuestas que coinciden para que se lean sin clics extra
+      item.open = Boolean(texto) && coincide;
+      if (coincide) visibles++;
+    });
+    vacio.hidden = visibles > 0;
+  });
 })();
