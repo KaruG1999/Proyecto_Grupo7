@@ -3,40 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../CSS/style.css" />
-    <!-- Íconos -->
+    <meta name="description" content="Catálogo de plantas, macetas, sustratos y herramientas con carrito de compras." />
+    <meta name="theme-color" content="#f4f4ef" />
+    <title>Tienda — Siempre Verde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap"
     />
-    <title>Tienda - Siempre Verde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <!-- GSAP: animaciones al hacer scroll (se cargan diferidas) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script defer src="../../assets/js/ui.js"></script>
   </head>
   <body>
     <!-- Header -->
-    <header>
+    <header class="site-header" data-header>
       <div class="container header-content">
-        <div class="logo">
-          <img src="../img/logo2.png" alt="Siempre Verde" />
-        </div>
-        <nav>
+        <a href="../../index.html" class="logo" aria-label="Siempre Verde — inicio">
+          <img src="../../assets/img/logo-verde.webp" alt="" width="317" height="160" />
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Principal">
           <ul>
-            <!-- conectar links a otras paginas -->
             <li><a href="../../index.html">Inicio</a></li>
-            <li><a href="./tienda.html">Tienda</a></li>
-            <li><a href="./comunidad.html">Comunidad</a></li>
-            <li><a href="./contacto.html">Contacto</a></li>
-            <!-- para side bar de carrito -->
-            <li>
-              <button id="menu-carrito-btn" class="menu-cart-button">
-                <i class="fas fa-cart-arrow-down"></i>
-                <span class="contador-carrito">3</span>
-              </button>
-            </li>
+            <li><a href="../../assets/HTMLs/tienda.html" aria-current="page">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
           </ul>
         </nav>
+
+        <div class="header-actions">
+          <button id="menu-carrito-btn" class="menu-cart-button" type="button" aria-label="Abrir carrito">
+            <i class="fas fa-bag-shopping" aria-hidden="true"></i>
+            <span class="contador-carrito" style="display: none">0</span>
+          </button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+            <span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -51,49 +59,13 @@
     <!-- Categorías destacadas -->
     <section class="categorias-destacadas-tienda">
       <div class="container">
-        <div class="categorias-grid">
-          <a href="#plantas-interior" class="categoria-tienda">
-            <div class="categoria-imagen">
-              <img
-                src="../img/plantas interior.jpg"
-                alt="Plantas de Interior"
-              />
-            </div>
-            <h3>Plantas de Interior</h3>
-          </a>
-          <a href="#plantas-exterior" class="categoria-tienda">
-            <div class="categoria-imagen">
-              <img
-                src="../img/plantas exterior.jpg"
-                alt="Plantas de Exterior"
-              />
-            </div>
-            <h3>Plantas de Exterior</h3>
-          </a>
-          <a href="#herramientas" class="categoria-tienda">
-            <div class="categoria-imagen">
-              <img src="../img/herramientas.jpg" alt="Herramientas" />
-            </div>
-            <h3>Herramientas</h3>
-          </a>
-          <a href="#sustratos" class="categoria-tienda">
-            <div class="categoria-imagen">
-              <img src="../img/fertilizantes.jpg" alt="Fertilizantes" />
-            </div>
-            <h3>Sustratos y Fertilizantes</h3>
-          </a>
-          <a href="#macetas" class="categoria-tienda">
-            <div class="categoria-imagen">
-              <img src="../img/macetas y deco.jpg" alt="Macetas" />
-            </div>
-            <h3>Macetas y Decoración</h3>
-          </a>
-          <a href="#ofertas" class="categoria-tienda oferta-especial">
-            <div class="categoria-imagen">
-              <img src="../img/ofertas.jpg" alt="Ofertas" />
-            </div>
-            <h3>Ofertas Especiales</h3>
-          </a>
+        <div class="categorias-grid" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="categoria-tienda" data-filtro="todo" aria-pressed="true">Todo</button>
+          <button type="button" class="categoria-tienda" data-filtro="interior" aria-pressed="false">Interior</button>
+          <button type="button" class="categoria-tienda" data-filtro="exterior" aria-pressed="false">Exterior</button>
+          <button type="button" class="categoria-tienda" data-filtro="herramientas" aria-pressed="false">Herramientas</button>
+          <button type="button" class="categoria-tienda" data-filtro="sustratos" aria-pressed="false">Sustratos y abonos</button>
+          <button type="button" class="categoria-tienda" data-filtro="ofertas" aria-pressed="false">Ofertas</button>
         </div>
       </div>
     </section>
@@ -106,16 +78,16 @@
           <!-- Control de vista y ordenamiento -->
           <div class="tienda-controles">
             <div class="vista-opciones">
-              <button class="vista-btn active" data-view="grid">
+              <button class="vista-btn active" data-view="grid" type="button" aria-label="Ver en grilla">
                 <i class="fas fa-th"></i>
               </button>
-              <button class="vista-btn" data-view="list">
+              <button class="vista-btn" data-view="list" type="button" aria-label="Ver en lista">
                 <i class="fas fa-list"></i>
               </button>
             </div>
             <div class="ordenar-opciones">
-              <label>Ordenar por:</label>
-              <select name="ordenar">
+              <label for="ordenar">Ordenar por</label>
+              <select name="ordenar" id="ordenar">
                 <!-- añado un filtro -->
                 <option value="relevancia">Relevancia</option>
                 <option value="precio_asc">Precio: Menor a mayor</option>
@@ -128,11 +100,12 @@
           </div>
 
           <!-- Productos -->
+          <p class="sin-resultados" id="tienda-sin-resultados" hidden>No hay productos en esta categoría por ahora.</p>
           <div class="productos-grid">
             <!-- Plantas de Interior -->
-            <div class="producto-item" id="plantas-interior">
+            <div class="producto-item" data-reveal id="plantas-interior">
               <div class="producto-imagen">
-                <img src="../img/Monstera.jpeg" alt="Monstera Deliciosa" />
+                <img loading="lazy" decoding="async" src="../img/monstera.webp" alt="Monstera Deliciosa" />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-destacado">Popular</span>
                 </div>
@@ -147,9 +120,9 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img src="../img/descarga (5).jpeg" alt="Calathea Ornata" />
+                <img loading="lazy" decoding="async" src="../img/calathea-ornata.webp" alt="Calathea Ornata" />
               </div>
               <div class="producto-info">
                 <h3>Calathea Ornata</h3>
@@ -161,10 +134,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/Golden Pothos Care _ Your Guide to Growing Lush Pothos - AroidWiki.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/pothos-golden.webp"
                   alt="Pothos Golden"
                 />
                 <div class="producto-etiquetas">
@@ -184,10 +157,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/Snake Plant Laurentii - Sanseviera Laurentii.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/sanseviera-laurentii.webp"
                   alt="Sanseviera"
                 />
                 <div class="producto-etiquetas">
@@ -204,9 +177,9 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img src="../img/Ficus lyrata.jpeg" alt="Ficus Lyrata" />
+                <img loading="lazy" decoding="async" src="../img/ficus-lyrata.webp" alt="Ficus Lyrata" />
               </div>
               <div class="producto-info">
                 <h3>Ficus Lyrata</h3>
@@ -219,10 +192,10 @@
             </div>
 
             <!-- Plantas de Exterior / podría sumar en el futuro separación por cat-->
-            <div class="producto-item" id="plantas-exterior">
+            <div class="producto-item" data-reveal id="plantas-exterior">
               <div class="producto-imagen">
-                <img
-                  src="../img/Bougainvillea Plant, Fuschia 87cmh (FI10446FU).jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/bougainvillea.webp"
                   alt="Bougainvillea"
                 />
               </div>
@@ -236,10 +209,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/Lavendel Samen Lavandula Angustifolia Lavendel Kruiden Zaadjes Lavendel Heilkraut Samen Graines De Lavande Officinale Lavendel.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/lavanda-francesa.webp"
                   alt="Lavanda"
                 />
                 <div class="producto-etiquetas">
@@ -256,9 +229,9 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img src="../img/Jazmín del Cabo_.jpeg" alt="Jazmín del Cabo" />
+                <img loading="lazy" decoding="async" src="../img/jazmin-del-cabo.webp" alt="Jazmín del Cabo" />
               </div>
               <div class="producto-info">
                 <h3>Jazmín del Cabo</h3>
@@ -271,9 +244,9 @@
             </div>
 
             <!-- Herramientas -->
-            <div class="producto-item" id="herramientas">
+            <div class="producto-item" data-reveal id="herramientas">
               <div class="producto-imagen">
-                <img src="../img/descarga (7).jpeg" alt="Set de Jardinería" />
+                <img loading="lazy" decoding="async" src="../img/set-jardineria.webp" alt="Set de Jardinería" />
                 <div class="producto-etiquetas">
                   <span class="etiqueta-oferta">-15%</span>
                 </div>
@@ -291,10 +264,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/Niwaki Sakagen Floral Scissors.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/tijera-de-podar.webp"
                   alt="Tijera de Podar"
                 />
               </div>
@@ -309,10 +282,10 @@
             </div>
 
             <!-- Sustratos y Cactus -->
-            <div class="producto-item" id="sustratos">
+            <div class="producto-item" data-reveal id="sustratos">
               <div class="producto-imagen">
-                <img
-                  src="../img/Sustratos - Cactus y suculentas _ Universal.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/sustrato-universal.webp"
                   alt="Sustrato Universal"
                 />
               </div>
@@ -326,10 +299,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/Abonos minerales para las plantas.jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/fertilizante-organico.webp"
                   alt="Fertilizante Orgánico"
                 />
                 <div class="producto-etiquetas">
@@ -346,10 +319,10 @@
               </div>
             </div>
 
-            <div class="producto-item">
+            <div class="producto-item" data-reveal>
               <div class="producto-imagen">
-                <img
-                  src="../img/descarga (6).jpeg"
+                <img loading="lazy" decoding="async"
+                  src="../img/cactus-espina-dorada.webp"
                   alt="Cactus Espina Dorada"
                 />
               </div>
@@ -363,79 +336,44 @@
               </div>
             </div>
           </div>
-
-          <!-- Paginación -->
-          <div class="paginacion">
-            <a href="#" class="pagina-anterior">
-              <i class="fas fa-chevron-left"></i>
-            </a>
-            <ul class="paginas">
-              <li><a href="#" class="pagina-num active">1</a></li>
-              <li><a href="#" class="pagina-num">2</a></li>
-              <li><a href="#" class="pagina-num">3</a></li>
-              <li><span class="pagina-dots">...</span></li>
-              <li><a href="#" class="pagina-num">8</a></li>
-            </ul>
-            <a href="#" class="pagina-siguiente">
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contacto">
-      <div class="container">
-        <div class="footer-content">
-          <!-- Columna 1: Información de la empresa -->
-          <div class="footer-column">
-            <h3>Siempre Verde</h3>
-            <p>
-              Expertos en plantas de interior y exterior. Hacemos que tu espacio
-              cobre vida con nuestras selecciones de plantas de la más alta
-              calidad.
-            </p>
-            <!-- Redes sociales -->
-            <div class="social-links">
-              <a href="#" class="social-icon" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Pinterest">
-                <i class="fab fa-pinterest"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Columna 2: Enlaces útiles -->
-          <div class="footer-column">
-            <h3>Enlaces útiles</h3>
-            <ul>
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="./tienda.html">Catálogo completo</a></li>
-              <li><a href="#ofertas">Ofertas especiales</a></li>
-              <li><a href="#cuidados">Guía de cuidados</a></li>
-              <li><a href="#preguntas">Preguntas frecuentes</a></li>
-            </ul>
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-column footer-brand">
+          <img src="../../assets/img/logo-crema.webp" alt="Siempre Verde" width="317" height="160" loading="lazy" />
+          <p>Plantas de interior y exterior elegidas con cuidado, y una comunidad para aprender a cuidarlas.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest" aria-hidden="true"></i></a>
           </div>
         </div>
 
-        <!-- Footer inferior con derechos de autor y enlaces legales -->
+        <div class="footer-column">
+          <h3>Explorar</h3>
+          <ul>
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Ayuda</h3>
+          <ul>
+            <li><a href="../../assets/HTMLs/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+            <li><a href="../../index.html#categorias-destacadas-home">Guía de cuidados</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Ofertas</a></li>
+          </ul>
+        </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
-          <div class="legal-links">
-            <a href="#aviso-legal">Aviso legal</a>
-            |
-            <a href="#politica-privacidad">Política de privacidad</a>
-            |
-            <a href="#cookies">Cookies</a>
-          </div>
+          <p>© 2025 Siempre Verde. Proyecto final de Ingenias+ por Karen Giannetto y Jessica Baeza.</p>
         </div>
       </div>
     </footer>
@@ -447,7 +385,7 @@
     <div class="carrito-sidebar">
       <div class="carrito-header">
         <h2>Tu carrito</h2>
-        <button class="btn-cerrar-carrito">
+        <button class="btn-cerrar-carrito" type="button" aria-label="Cerrar carrito">
           <i class="fas fa-times"></i>
         </button>
       </div>

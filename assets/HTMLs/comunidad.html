@@ -1,44 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- // linkeo página a css  -->
-    <link rel="stylesheet" href="../CSS/style.css" />
-    <!-- añade icono carrito y redes-->
+    <meta name="description" content="Compartí experiencias, preguntas y consejos con otras personas amantes de las plantas." />
+    <meta name="theme-color" content="#f4f4ef" />
+    <title>Comunidad — Siempre Verde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap"
     />
-    <title>Siempre verde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <!-- GSAP: animaciones al hacer scroll (se cargan diferidas) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script defer src="../../assets/js/ui.js"></script>
   </head>
   <body>
     <!-- Header -->
-    <header>
+    <header class="site-header" data-header>
       <div class="container header-content">
-        <div class="logo">
-          <!-- agregar logo -->
-          <img src="../img/logo2.png" alt="Siempre Verde" />
-        </div>
-        <nav>
+        <a href="../../index.html" class="logo" aria-label="Siempre Verde — inicio">
+          <img src="../../assets/img/logo-verde.webp" alt="" width="317" height="160" />
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Principal">
           <ul>
-            <!-- conectar links a otras paginas -->
             <li><a href="../../index.html">Inicio</a></li>
-            <li><a href="./tienda.html">Tienda</a></li>
-            <li><a href="./comunidad.html">Comunidad</a></li>
-            <li><a href="./contacto.html">Contacto</a></li>
-            <!-- para side bar de carrito -->
-            <li>
-              <button id="menu-carrito-btn" class="menu-cart-button">
-                <i class="fas fa-cart-arrow-down"></i>
-                <span class="contador-carrito">3</span>
-              </button>
-            </li>
+            <li><a href="../../assets/HTMLs/tienda.html">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html" aria-current="page">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
           </ul>
         </nav>
+
+        <div class="header-actions">
+          <button id="menu-carrito-btn" class="menu-cart-button" type="button" aria-label="Abrir carrito">
+            <i class="fas fa-bag-shopping" aria-hidden="true"></i>
+            <span class="contador-carrito" style="display: none">0</span>
+          </button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+            <span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -56,7 +62,7 @@
     <!-- Sección de publicación / Formulario -->
     <section class="nueva-publicacion">
       <div class="container">
-        <h2>¿Tienes una pregunta o quieres compartir algo?</h2>
+        <h2>¿Tenés una pregunta o algo para compartir?</h2>
         <div class="publicacion-form">
           <input
             type="text"
@@ -78,7 +84,7 @@
                 type="file"
                 id="post-photo"
                 accept="image/*"
-                style="display: none"
+                
               />
             </div>
             <div class="categorias-dropdown">
@@ -91,7 +97,7 @@
                 <option value="decoracion">Decoración con plantas</option>
               </select>
             </div>
-            <button class="btn publicar-btn">Publicar</button>
+            <button class="btn publicar-btn" type="button">Publicar</button>
           </div>
         </div>
       </div>
@@ -102,8 +108,9 @@
       <div class="container">
         <div class="filtros-container">
           <div class="busqueda">
-            <input type="text" placeholder="Buscar en la comunidad..." />
-            <button class="search-btn"><i class="fas fa-search"></i></button>
+            <label for="buscar-comunidad" class="sr-only">Buscar en la comunidad</label>
+            <input type="search" id="buscar-comunidad" placeholder="Buscar en la comunidad…" autocomplete="off" />
+            <button class="search-btn" type="button" aria-label="Buscar"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></button>
           </div>
           <div class="filtros">
             <select name="filtrar-por">
@@ -133,7 +140,7 @@
         <div class="publicacion-card">
           <div class="publicacion-header">
             <div class="usuario-info">
-              <img src="../img/usuaria1.jpg" alt="Foto de perfil" />
+              <img loading="lazy" decoding="async" src="../img/usuaria1.webp" alt="Foto de perfil" />
               <div class="usuario-detalles">
                 <h4>María Rodríguez</h4>
                 <span class="fecha-publicacion">Hace 2 días</span>
@@ -152,22 +159,21 @@
               puede estar pasando?
             </p>
             <div class="publicacion-imagen">
-              <img
-                src="../img/hojas-amarillas-monstera.jpg"
+              <img loading="lazy" decoding="async"
+                src="../img/hojas-amarillas-monstera.webp"
                 alt="Hojas amarillas de monstera"
               />
             </div>
             <div class="publicacion-stats">
               <span>
-                <i class="fas fa-comment"></i>
+                <i class="far fa-comment" aria-hidden="true"></i>
                 12 respuestas
               </span>
-              <span>
-                <i class="fas fa-heart"></i>
-                8 me gusta
-              </span>
+              <button type="button" class="btn-like" aria-pressed="false" data-likes="8">
+                <i class="far fa-heart" aria-hidden="true"></i>
+                <span>8</span> me gusta
+              </button>
             </div>
-            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
           </div>
         </div>
 
@@ -175,7 +181,7 @@
         <div class="publicacion-card">
           <div class="publicacion-header">
             <div class="usuario-info">
-              <img src="../img/usuario2.jpg" alt="Foto de perfil" />
+              <img loading="lazy" decoding="async" src="../img/usuario2.webp" alt="Foto de perfil" />
               <div class="usuario-detalles">
                 <h4>Carlos Mendoza</h4>
                 <span class="fecha-publicacion">Hace 5 días</span>
@@ -192,22 +198,21 @@
               proceso paso a paso!
             </p>
             <div class="publicacion-imagen">
-              <img
-                src="../img/Potos-agua-768x900.jpg"
+              <img loading="lazy" decoding="async"
+                src="../img/potos-agua.webp"
                 alt="Pothos con raíces en agua"
               />
             </div>
             <div class="publicacion-stats">
               <span>
-                <i class="fas fa-comment"></i>
+                <i class="far fa-comment" aria-hidden="true"></i>
                 23 respuestas
               </span>
-              <span>
-                <i class="fas fa-heart"></i>
-                45 me gusta
-              </span>
+              <button type="button" class="btn-like" aria-pressed="false" data-likes="45">
+                <i class="far fa-heart" aria-hidden="true"></i>
+                <span>45</span> me gusta
+              </button>
             </div>
-            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
           </div>
         </div>
 
@@ -215,7 +220,7 @@
         <div class="publicacion-card">
           <div class="publicacion-header">
             <div class="usuario-info">
-              <img src="../img/usuaria3.jpg" alt="Foto de perfil" />
+              <img loading="lazy" decoding="async" src="../img/usuaria3.webp" alt="Foto de perfil" />
               <div class="usuario-detalles">
                 <h4>Laura Sánchez</h4>
                 <span class="fecha-publicacion">Hace 1 semana</span>
@@ -233,15 +238,14 @@
             </p>
             <div class="publicacion-stats">
               <span>
-                <i class="fas fa-comment"></i>
+                <i class="far fa-comment" aria-hidden="true"></i>
                 18 respuestas
               </span>
-              <span>
-                <i class="fas fa-heart"></i>
-                12 me gusta
-              </span>
+              <button type="button" class="btn-like" aria-pressed="false" data-likes="12">
+                <i class="far fa-heart" aria-hidden="true"></i>
+                <span>12</span> me gusta
+              </button>
             </div>
-            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
           </div>
         </div>
 
@@ -249,7 +253,7 @@
         <div class="publicacion-card">
           <div class="publicacion-header">
             <div class="usuario-info">
-              <img src="../img/usuario4.jpg" alt="Foto de perfil" />
+              <img loading="lazy" decoding="async" src="../img/usuario4.webp" alt="Foto de perfil" />
               <div class="usuario-detalles">
                 <h4>Eduardo López</h4>
                 <span class="fecha-publicacion">Hace 2 semanas</span>
@@ -266,55 +270,37 @@
               bienestar durante la jornada laboral.
             </p>
             <div class="publicacion-imagen">
-              <img src="../img/fondo5.jpg" alt="Oficina con plantas" />
+              <img loading="lazy" decoding="async" src="../img/rincon-plantas.webp" alt="Oficina con plantas" />
             </div>
             <div class="publicacion-stats">
               <span>
-                <i class="fas fa-comment"></i>
+                <i class="far fa-comment" aria-hidden="true"></i>
                 9 respuestas
               </span>
-              <span>
-                <i class="fas fa-heart"></i>
-                32 me gusta
-              </span>
+              <button type="button" class="btn-like" aria-pressed="false" data-likes="32">
+                <i class="far fa-heart" aria-hidden="true"></i>
+                <span>32</span> me gusta
+              </button>
             </div>
-            <a href="#" class="ver-respuestas">Ver todas las respuestas</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Paginación -->
-    <div class="paginacion">
-      <a href="#" class="pagina-anterior">
-        <i class="fas fa-chevron-left"></i>
-      </a>
-      <ul class="paginas">
-        <li><a href="#" class="pagina-num active">1</a></li>
-        <li><a href="#" class="pagina-num">2</a></li>
-        <li><a href="#" class="pagina-num">3</a></li>
-        <li><span class="pagina-dots">...</span></li>
-        <li><a href="#" class="pagina-num">8</a></li>
-      </ul>
-      <a href="#" class="pagina-siguiente">
-        <i class="fas fa-chevron-right"></i>
-      </a>
-    </div>
-
     <!-- Banner de expertos -->
     <section class="expertos-banner">
       <div class="container">
-        <div class="expertos-contenido">
+        <div class="expertos-contenido" data-reveal>
           <div class="expertos-texto">
             <h2>¿Tienes una consulta específica?</h2>
             <p>
               Nuestras expertas en botánica pueden ayudarte a resolver cualquier
               duda sobre el cuidado de tus plantas.
             </p>
-            <a href="contacto.html" class="btn">Consultar a una experta</a>
+            <a href="./contacto.html" class="btn">Consultar a una experta</a>
           </div>
           <div class="expertos-imagen">
-            <img src="../img/experta en plantas.jpg" alt="Experta en plantas" />
+            <img loading="lazy" decoding="async" src="../img/experta-en-plantas.webp" alt="Experta en plantas" />
           </div>
         </div>
       </div>
@@ -325,7 +311,7 @@
       <div class="container">
         <h2>Próximos eventos y talleres</h2>
         <div class="eventos-grid">
-          <div class="evento-card">
+          <div class="evento-card" data-reveal>
             <div class="evento-fecha">
               <span class="dia">12</span>
               <span class="mes">JUN</span>
@@ -340,11 +326,11 @@
                 <i class="fas fa-clock"></i>
                 17:00 - 19:00 hrs
               </p>
-              <a href="#" class="btn btn-small">Inscribirse</a>
+              <a href="./contacto.html" class="btn btn-small">Inscribirme</a>
             </div>
           </div>
 
-          <div class="evento-card">
+          <div class="evento-card" data-reveal>
             <div class="evento-fecha">
               <span class="dia">20</span>
               <span class="mes">JUN</span>
@@ -359,11 +345,11 @@
                 <i class="fas fa-clock"></i>
                 18:30 - 20:00 hrs
               </p>
-              <a href="#" class="btn btn-small">Inscribirse</a>
+              <a href="./contacto.html" class="btn btn-small">Inscribirme</a>
             </div>
           </div>
 
-          <div class="evento-card">
+          <div class="evento-card" data-reveal>
             <div class="evento-fecha">
               <span class="dia">5</span>
               <span class="mes">JUL</span>
@@ -378,7 +364,7 @@
                 <i class="fas fa-clock"></i>
                 10:00 - 14:00 hrs
               </p>
-              <a href="#" class="btn btn-small">Más información</a>
+              <a href="./contacto.html" class="btn btn-small btn-outline">Más información</a>
             </div>
           </div>
         </div>
@@ -388,7 +374,7 @@
     <!-- Reglas de la comunidad -->
     <section class="reglas-comunidad">
       <div class="container">
-        <div class="reglas-content">
+        <div class="reglas-content" data-reveal>
           <h2>Reglas de nuestra comunidad</h2>
           <ul class="reglas-lista">
             <li>
@@ -421,58 +407,39 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contacto">
-      <div class="container">
-        <div class="footer-content">
-          <!-- Columna 1: Información de la empresa -->
-          <div class="footer-column">
-            <h3>Siempre Verde</h3>
-            <p>
-              Expertos en plantas de interior y exterior. Hacemos que tu espacio
-              cobre vida con nuestras selecciones de plantas de la más alta
-              calidad.
-            </p>
-            <!-- Redes sociales -->
-            <div class="social-links">
-              <!-- agregar links -->
-              <a href="#" class="social-icon" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Pinterest">
-                <i class="fab fa-pinterest"></i>
-              </a>
-            </div>
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-column footer-brand">
+          <img src="../../assets/img/logo-crema.webp" alt="Siempre Verde" width="317" height="160" loading="lazy" />
+          <p>Plantas de interior y exterior elegidas con cuidado, y una comunidad para aprender a cuidarlas.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest" aria-hidden="true"></i></a>
           </div>
+        </div>
 
-          <!-- Columna 2: Enlaces útiles -->
-          <div class="footer-column">
-            <h3>Enlaces útiles</h3>
-            <ul>
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="./tienda.html">Catálogo completo</a></li>
-              <li><a href="#ofertas">Ofertas especiales</a></li>
-              <li><a href="#cuidados">Guía de cuidados</a></li>
-              <li><a href="#preguntas">Preguntas frecuentes</a></li>
-            </ul>
-          </div>
+        <div class="footer-column">
+          <h3>Explorar</h3>
+          <ul>
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
+          </ul>
+        </div>
 
-          <!-- Footer inferior con derechos de autor y enlaces legales -->
-          <div class="footer-bottom">
-            <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
-            <div class="legal-links">
-              <a href="#aviso-legal">Aviso legal</a>
-              |
-              <a href="#politica-privacidad">Política de privacidad</a>
-              |
-              <a href="#cookies">Cookies</a>
-            </div>
-          </div>
+        <div class="footer-column">
+          <h3>Ayuda</h3>
+          <ul>
+            <li><a href="../../assets/HTMLs/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+            <li><a href="../../index.html#categorias-destacadas-home">Guía de cuidados</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Ofertas</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 Siempre Verde. Proyecto final de Ingenias+ por Karen Giannetto y Jessica Baeza.</p>
         </div>
       </div>
     </footer>
@@ -484,7 +451,7 @@
     <div class="carrito-sidebar">
       <div class="carrito-header">
         <h2>Tu carrito</h2>
-        <button class="btn-cerrar-carrito">
+        <button class="btn-cerrar-carrito" type="button" aria-label="Cerrar carrito">
           <i class="fas fa-times"></i>
         </button>
       </div>

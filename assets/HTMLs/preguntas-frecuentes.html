@@ -1,42 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../CSS/style.css" />
-    <!-- añade icono carrito y redes-->
+    <meta name="description" content="Respuestas sobre envíos, pagos, garantías, devoluciones y cuidado de plantas." />
+    <meta name="theme-color" content="#f4f4ef" />
+    <title>Preguntas frecuentes — Siempre Verde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap"
     />
-    <title>Preguntas Frecuentes - Siempre Verde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <!-- GSAP: animaciones al hacer scroll (se cargan diferidas) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script defer src="../../assets/js/ui.js"></script>
   </head>
   <body>
     <!-- Header -->
-    <header>
+    <header class="site-header" data-header>
       <div class="container header-content">
-        <div class="logo">
-          <img src="../img/logo2.png" alt="Siempre Verde" />
-        </div>
-        <nav>
+        <a href="../../index.html" class="logo" aria-label="Siempre Verde — inicio">
+          <img src="../../assets/img/logo-verde.webp" alt="" width="317" height="160" />
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Principal">
           <ul>
-            <!-- conectar links a otras paginas -->
             <li><a href="../../index.html">Inicio</a></li>
-            <li><a href="./tienda.html">Tienda</a></li>
-            <li><a href="./comunidad.html">Comunidad</a></li>
-            <li><a href="./contacto.html">Contacto</a></li>
-            <!-- para side bar de carrito -->
-            <li>
-              <button id="menu-carrito-btn" class="menu-cart-button">
-                <i class="fas fa-cart-arrow-down"></i>
-                <span class="contador-carrito">3</span>
-              </button>
-            </li>
+            <li><a href="../../assets/HTMLs/tienda.html">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
           </ul>
         </nav>
+
+        <div class="header-actions">
+          <button id="menu-carrito-btn" class="menu-cart-button" type="button" aria-label="Abrir carrito">
+            <i class="fas fa-bag-shopping" aria-hidden="true"></i>
+            <span class="contador-carrito" style="display: none">0</span>
+          </button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+            <span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -54,13 +62,16 @@
     <!-- Preguntas y Respuestas -->
     <section class="faq-contenido">
       <div class="container">
+        <div class="faq-buscador" data-reveal>
+          <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+          <label for="faq-search" class="sr-only">Buscar una pregunta</label>
+          <input type="search" id="faq-search" placeholder="Buscar: envío, garantía, riego…" autocomplete="off" />
+        </div>
+        <p class="sin-resultados" id="faq-sin-resultados" hidden>No encontramos preguntas con esas palabras. Probá con otra o escribinos.</p>
         <div class="faq-grid">
           <!-- Categoría: Envíos -->
-          <div class="faq-item" data-categoria="envios">
-            <div class="faq-pregunta">
-              <h3>¿Cuál es el tiempo de entrega?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="envios">
+            <summary class="faq-pregunta"><h3>¿Cuál es el tiempo de entrega?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Nuestros tiempos de entrega oscilan entre 2-5 días hábiles
@@ -69,13 +80,10 @@
                 alejadas puede tomar hasta 5 días hábiles.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="envios">
-            <div class="faq-pregunta">
-              <h3>¿Hacen envíos internacionales?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="envios">
+            <summary class="faq-pregunta"><h3>¿Hacen envíos internacionales?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Actualmente solo realizamos
@@ -84,13 +92,10 @@
                 nuestros servicios internacionales en el futuro cercano.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="envios">
-            <div class="faq-pregunta">
-              <h3>¿Cuánto cuesta el envío?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="envios">
+            <summary class="faq-pregunta"><h3>¿Cuánto cuesta el envío?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 El costo de envío varía según la ubicación y el peso del pedido.
@@ -98,14 +103,11 @@
                 pedidos menores, el costo oscila entre $5-15.
               </p>
             </div>
-          </div>
+          </details>
 
           <!-- Categoría: Productos -->
-          <div class="faq-item" data-categoria="productos">
-            <div class="faq-pregunta">
-              <h3>¿Las plantas vienen con maceta?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="productos">
+            <summary class="faq-pregunta"><h3>¿Las plantas vienen con maceta?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Sí, todas nuestras plantas vienen en macetas apropiadas para su
@@ -113,13 +115,10 @@
                 macetas decorativas por un costo adicional.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="productos">
-            <div class="faq-pregunta">
-              <h3>¿Qué garantía tienen las plantas?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="productos">
+            <summary class="faq-pregunta"><h3>¿Qué garantía tienen las plantas?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Ofrecemos una garantía de 30 días para todas nuestras plantas.
@@ -128,14 +127,10 @@
                 adicional.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="productos">
-            <!--  -->
-            <div class="faq-pregunta">
-              <h3>¿Puedo devolver una planta?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="productos">
+            <summary class="faq-pregunta"><h3>¿Puedo devolver una planta?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Aceptamos devoluciones dentro de los primeros 7 días si la
@@ -144,14 +139,11 @@
                 recibiste.
               </p>
             </div>
-          </div>
+          </details>
 
           <!-- Categoría: Cuidados -->
-          <div class="faq-item" data-categoria="cuidados">
-            <div class="faq-pregunta">
-              <h3>¿Ofrecen asesoramiento personalizado?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="cuidados">
+            <summary class="faq-pregunta"><h3>¿Ofrecen asesoramiento personalizado?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 ¡Sí! Nuestras expertas pueden ayudarte a elegir las plantas
@@ -159,13 +151,10 @@
                 consultas de cuidado personalizadas.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="cuidados">
-            <div class="faq-pregunta">
-              <h3>¿Qué hago si mi planta se está muriendo?</h3>
-              <!--  <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="cuidados">
+            <summary class="faq-pregunta"><h3>¿Qué hago si mi planta se está muriendo?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 ¡No entres en pánico! La mayoría de los problemas de las plantas
@@ -173,13 +162,10 @@
                 daremos consejos específicos para revivirla.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="cuidados">
-            <div class="faq-pregunta">
-              <h3>¿Con qué frecuencia debo regar mis plantas?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="cuidados">
+            <summary class="faq-pregunta"><h3>¿Con qué frecuencia debo regar mis plantas?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Depende del tipo de planta, la temporada y las condiciones de tu
@@ -187,14 +173,11 @@
                 dedo. Si está seco a 2-3 cm de profundidad, es hora de regar.
               </p>
             </div>
-          </div>
+          </details>
 
           <!-- Categoría: Pagos -->
-          <div class="faq-item" data-categoria="pagos">
-            <div class="faq-pregunta">
-              <h3>¿Qué métodos de pago aceptan?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="pagos">
+            <summary class="faq-pregunta"><h3>¿Qué métodos de pago aceptan?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Aceptamos tarjetas de crédito y débito (Visa, MasterCard,
@@ -202,13 +185,10 @@
                 efectivo contra entrega en ciertas zonas.
               </p>
             </div>
-          </div>
+          </details>
 
-          <div class="faq-item" data-categoria="pagos">
-            <div class="faq-pregunta">
-              <h3>¿Puedo pagar a plazos?</h3>
-              <!-- <i class="fas fa-chevron-down"></i> -->
-            </div>
+          <details class="faq-item" data-categoria="pagos">
+            <summary class="faq-pregunta"><h3>¿Puedo pagar a plazos?</h3></summary>
             <div class="faq-respuesta">
               <p>
                 Para compras superiores a $100, ofrecemos opciones de
@@ -216,7 +196,7 @@
                 nuestros socios financieros.
               </p>
             </div>
-          </div>
+          </details>
         </div>
       </div>
       <!--  -->
@@ -225,7 +205,7 @@
     <!-- Sección de contacto adicional -->
     <section class="faq-contacto">
       <div class="container">
-        <div class="contacto-cta">
+        <div class="contacto-cta" data-reveal>
           <h2>¿No encontraste lo que buscabas?</h2>
           <!-- podría agregar link a comunidad -->
           <p>
@@ -233,7 +213,7 @@
             consulta específica.
           </p>
           <div class="contacto-opciones">
-            <a href="contacto.html" class="btn btn-primary">Contáctanos</a>
+            <a href="./contacto.html" class="btn btn-primary">Contáctanos</a>
             <a href="mailto:info@siempreverde.com" class="btn btn-outline">
               <i class="fas fa-envelope"></i>
               Enviar email
@@ -248,59 +228,39 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contacto">
-      <div class="container">
-        <div class="footer-content">
-          <!-- Columna 1: Información de la empresa -->
-          <div class="footer-column">
-            <h3>Siempre Verde</h3>
-            <p>
-              Expertos en plantas de interior y exterior. Hacemos que tu espacio
-              cobre vida con nuestras selecciones de plantas de la más alta
-              calidad.
-            </p>
-            <!-- Redes sociales -->
-            <div class="social-links">
-              <a href="#" class="social-icon" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon" aria-label="Pinterest">
-                <i class="fab fa-pinterest"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Columna 2: Enlaces útiles -->
-          <div class="footer-column">
-            <h3>Enlaces útiles</h3>
-            <ul>
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="./tienda.html">Catálogo completo</a></li>
-              <li><a href="#ofertas">Ofertas especiales</a></li>
-              <li><a href="#cuidados">Guía de cuidados</a></li>
-              <li>
-                <a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
-              </li>
-            </ul>
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-column footer-brand">
+          <img src="../../assets/img/logo-crema.webp" alt="Siempre Verde" width="317" height="160" loading="lazy" />
+          <p>Plantas de interior y exterior elegidas con cuidado, y una comunidad para aprender a cuidarlas.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest" aria-hidden="true"></i></a>
           </div>
         </div>
 
-        <!-- Footer inferior con derechos de autor y enlaces legales -->
+        <div class="footer-column">
+          <h3>Explorar</h3>
+          <ul>
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Tienda</a></li>
+            <li><a href="../../assets/HTMLs/comunidad.html">Comunidad</a></li>
+            <li><a href="../../assets/HTMLs/contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Ayuda</h3>
+          <ul>
+            <li><a href="../../assets/HTMLs/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+            <li><a href="../../index.html#categorias-destacadas-home">Guía de cuidados</a></li>
+            <li><a href="../../assets/HTMLs/tienda.html">Ofertas</a></li>
+          </ul>
+        </div>
+
         <div class="footer-bottom">
-          <p>&copy; 2025 Siempre Verde. Todos los derechos reservados.</p>
-          <div class="legal-links">
-            <a href="#aviso-legal">Aviso legal</a>
-            |
-            <a href="#politica-privacidad">Política de privacidad</a>
-            |
-            <a href="#cookies">Cookies</a>
-          </div>
+          <p>© 2025 Siempre Verde. Proyecto final de Ingenias+ por Karen Giannetto y Jessica Baeza.</p>
         </div>
       </div>
     </footer>
@@ -312,7 +272,7 @@
     <div class="carrito-sidebar">
       <div class="carrito-header">
         <h2>Tu carrito</h2>
-        <button class="btn-cerrar-carrito">
+        <button class="btn-cerrar-carrito" type="button" aria-label="Cerrar carrito">
           <i class="fas fa-times"></i>
         </button>
       </div>
